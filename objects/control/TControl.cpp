@@ -11,7 +11,7 @@ TControl::TControl():
 
 
 TControl::TControl(object_id_t id, uint16_t w, uint16_t h, QColor bgc): 
-    TObject(TObject::TYPE_BOARD, id, w, h, bgc),
+    TObject(TObject::TYPE_CONTROL, id, w, h, bgc),
     children(QList<object_id_t>())
 {
 }
