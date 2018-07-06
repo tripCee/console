@@ -11,10 +11,10 @@ namespace Objects {
 //}
 
 
-TGame::TGame(uint16_t id, uint16_t w, uint16_t h, QColor bgc, uint16_t current_level): 
+TGame::TGame(object_id_t id, uint16_t w, uint16_t h, QColor bgc, uint16_t current_level): 
     TObject(TObject::TYPE_GAME, id, w, h, bgc),
     score_id(0),
-    children(QList<uint16_t>()),
+    children(QList<object_id_t>()),
     current_level(current_level)
 {
 }
@@ -25,27 +25,57 @@ TGame::~TGame()
 }
 
 
-void TGame::set_score_id(uint16_t id)
+void TGame::set_score_id(object_id_t id)
 {
     score_id = id;
 }
 
 
-uint16_t TGame::get_score_id()
+object_id_t TGame::get_score_id()
 {
     return score_id;
 }
 
 
-void TGame::add_child(uint16_t cid)
+void TGame::set_control_id(object_id_t id)
+{
+    control_id = id;
+}
+
+
+object_id_t TGame::get_control_id()
+{
+    return control_id;
+}
+
+
+void TGame::set_storage_id(object_id_t id)
+{
+    storage_id = id;
+}
+
+
+object_id_t TGame::get_storage_id()
+{
+    return storage_id;
+}
+
+
+void TGame::add_child(object_id_t cid)
 {
     children.append(cid);
 }
 
 
-const QList<uint16_t>& TGame::get_children()
+const QList<object_id_t>& TGame::get_children()
 {
     return children;
+}
+
+
+object_id_t TGame::get_current_board_id()
+{
+    return children[current_level-1];
 }
 
 

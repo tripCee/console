@@ -5,6 +5,8 @@
 #include "objects/TObject.h"
 #include "objects/TGame.h"
 #include "objects/board/TBoard.h"
+#include "objects/control/TControl.h"
+#include "objects/storage/TStorage.h"
 
 namespace Console {
 namespace Operations {
@@ -25,6 +27,14 @@ void operate(Console::Objects::TObject& obj, OP& op, Args&& ...args)
     case Console::Objects::TObject::TYPE_BOARD:
         printf("***Found BOARD\n");
         operate_obj<Console::Objects::TBoard&>(static_cast<Console::Objects::TBoard&>(obj), op, args...);
+        break;
+    case Console::Objects::TObject::TYPE_CONTROL:
+        printf("***Found CONTROL\n");
+        operate_obj<Console::Objects::TControl&>(static_cast<Console::Objects::TControl&>(obj), op, args...);
+        break;
+        case Console::Objects::TObject::TYPE_STORAGE:
+        printf("***Found STORAGE\n");
+        operate_obj<Console::Objects::TStorage&>(static_cast<Console::Objects::TStorage&>(obj), op, args...);
         break;
     default:
         printf("***Found OBJ\n");

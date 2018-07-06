@@ -24,7 +24,9 @@ SOURCES += \
 	objects/TObject.cpp \
 	objects/TGame.cpp \
 	objects/board/TBoard.cpp \
-	objects/score/TScore.cpp
+	objects/score/TScore.cpp \
+	objects/control/TControl.cpp \
+	objects/storage/TStorage.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -33,5 +35,7 @@ HEADERS += \
 	objects/TGame.h \
 	objects/board/TBoard.h \
 	objects/score/TScore.h \
+	objects/control/TControl.h \
+	objects/storage/TStorage.h \
        	operations/painter.h \
 	operations/helpers.h

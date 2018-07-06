@@ -5,15 +5,15 @@ namespace Objects {
 
 TBoard::TBoard(): 
     TObject(),
-    children(QList<uint16_t>()),
+    children(QList<object_id_t>()),
     block_size(0)
 {
 }
 
 
-TBoard::TBoard(uint16_t id, uint16_t w, uint16_t h, QColor bgc, uint16_t block_size): 
+TBoard::TBoard(object_id_t id, uint16_t w, uint16_t h, QColor bgc, uint16_t block_size): 
     TObject(TObject::TYPE_BOARD, id, w, h, bgc),
-    children(QList<uint16_t>()),
+    children(QList<object_id_t>()),
     block_size(block_size)
 {
 }
@@ -24,7 +24,7 @@ TBoard::~TBoard()
 }
 
 
-void TBoard::add_child(uint16_t cid)
+void TBoard::add_child(object_id_t cid)
 {
     children.append(cid);
 }

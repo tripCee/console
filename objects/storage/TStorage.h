@@ -14,15 +14,15 @@ class TStorage : public TObject
 
 public:
     TStorage();
-    TStorage(uint16_t id, uint16_t w, uint16_t h, QColor bgc);
+    TStorage(object_id_t id, uint16_t w, uint16_t h, QColor bgc);
     ~TStorage();
 
-    void add_child(uint16_t cid);
-    const QList<uint16_t>& get_children();
+    void add_child(object_id_t cid);
+    const QList<object_id_t>& get_children();
 
 private:
     //grid
-    QList<uint16_t> children;
+    QList<object_id_t> children;
 };
 
 } // namespace Objects

@@ -14,17 +14,17 @@ class TBoard : public TObject
 
 public:
     TBoard();
-    TBoard(uint16_t id, uint16_t w, uint16_t h, QColor bgc, uint16_t block_size);
+    TBoard(object_id_t id, uint16_t w, uint16_t h, QColor bgc, uint16_t block_size);
     ~TBoard();
 
-    void add_child(uint16_t cid);
-    const QList<uint16_t>& get_children();
+    void add_child(object_id_t cid);
+    const QList<object_id_t>& get_children();
     void set_block_size(uint16_t bs);
     uint16_t get_block_size();
 
 private:
     //grid
-    QList<uint16_t> children;
+    QList<object_id_t> children;
     uint16_t block_size;
 };
 

@@ -13,7 +13,7 @@ TObject::TObject():
 }
 
 
-TObject::TObject(type_t object_type, uint16_t id, uint16_t w, uint16_t h, QColor bgc): 
+TObject::TObject(type_t object_type, object_id_t id, uint16_t w, uint16_t h, QColor bgc): 
     //QObject(),
     type(object_type),
     id(id),
@@ -36,13 +36,13 @@ TObject::type_t TObject::get_type()
 }
 
 
-void TObject::set_id(uint16_t id)
+void TObject::set_id(object_id_t id)
 {
     id = id;
 }
 
 
-uint16_t TObject::get_id()
+object_id_t TObject::get_id()
 {
     return id;
 }

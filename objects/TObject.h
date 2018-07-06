@@ -5,6 +5,8 @@
 #include <QColor>
 #include <QPixmap>
 
+typedef uint16_t object_id_t;
+
 namespace Console {
 namespace Objects {
 
@@ -16,16 +18,18 @@ public:
     enum type_t {
         TYPE_GAME = 0,
         TYPE_SCORE = 1,
-        TYPE_BOARD = 2
+        TYPE_BOARD = 2,
+        TYPE_CONTROL = 3,
+        TYPE_STORAGE = 4
     };
 
     TObject();
-    TObject(type_t object_type, uint16_t id, uint16_t w, uint16_t h, QColor bgc);
+    TObject(type_t object_type, object_id_t id, uint16_t w, uint16_t h, QColor bgc);
     ~TObject();
 
     type_t get_type();
     void set_id(uint16_t id);
-    uint16_t get_id();
+    object_id_t get_id();
     void set_size(uint16_t w, uint16_t h);
     void set_width(uint16_t w);
     void set_height(uint16_t h);
@@ -36,7 +40,7 @@ public:
 
 private:
     type_t type;
-    uint16_t id;
+    object_id_t id;
     uint16_t width;
     uint16_t height;
     QColor bg_colour;
