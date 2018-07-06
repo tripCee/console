@@ -18,7 +18,7 @@ public:
     TGame(uint16_t id, uint16_t w, uint16_t h, QColor bgc, uint16_t current_level);
     ~TGame();
 
-    void add_score_id(uint16_t score_id);
+    void set_score_id(uint16_t id);
     uint16_t get_score_id();
     void add_child(uint16_t cid);
     const QList<uint16_t>& get_children();

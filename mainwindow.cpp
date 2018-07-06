@@ -39,20 +39,29 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
 void MainWindow::Init_test_game()
 {
-    int id = 1;
-    Console::Objects::TGame* game = new Console::Objects::TGame(id, (CONSOLE_WIDTH - CONSOLE_HEIGHT) / 2, CONSOLE_HEIGHT, Qt::black, 1);
-    ++id;
-    Console::Objects::TScore* score = new Console::Objects::TScore(id, 0, 0, Qt::white);
-    ++id;
-    Console::Objects::TBoard* board = new Console::Objects::TBoard(id, CONSOLE_HEIGHT, CONSOLE_HEIGHT, Qt::white, 10);
-    ++id;
+    uint16_t id = 1;
+    float max_width = 0.6;
 
-    game->add_score_id(score->get_id());
+    int board_width = qMin(int(CONSOLE_HEIGHT), qRound(CONSOLE_WIDTH * max_width));
+    int score_width = qRound((float(CONSOLE_WIDTH - board_width) / 2.0));
+
+
+    Console::Objects::TGame* game = new Console::Objects::TGame(id, CONSOLE_WIDTH, CONSOLE_HEIGHT, Qt::black, 1);
+    id += 1;
+    Console::Objects::TScore* score = new Console::Objects::TScore(id, score_width, CONSOLE_HEIGHT, Qt::red);
+    id += 1;
+    Console::Objects::TBoard* board = new Console::Objects::TBoard(id, board_width, board_width, Qt::white, 10);
+
+    game->set_score_id(score->get_id());
     game->add_child(board->get_id());
 
     pool.add_game(game->get_id(), game);
     pool.add_object(score->get_id(), score);
     pool.add_object(board->get_id(), board);
+
+    printf("pool 1 -> %p\n", pool.get_object(1));
+    printf("pool 2 -> %p\n", pool.get_object(2));
+    printf("pool 3 -> %p\n", pool.get_object(3));
 
     this->update();
 }

@@ -13,6 +13,7 @@ namespace Objects {
 
 TGame::TGame(uint16_t id, uint16_t w, uint16_t h, QColor bgc, uint16_t current_level): 
     TObject(TObject::TYPE_GAME, id, w, h, bgc),
+    score_id(0),
     children(QList<uint16_t>()),
     current_level(current_level)
 {
@@ -24,9 +25,9 @@ TGame::~TGame()
 }
 
 
-void TGame::add_score_id(uint16_t score_id)
+void TGame::set_score_id(uint16_t id)
 {
-    score_id = score_id;
+    score_id = id;
 }
 
 

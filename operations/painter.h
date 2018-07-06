@@ -51,7 +51,7 @@ void operate_obj(Console::Objects::TGame& obj, PAINT& p, TPool& pool, QPoint off
 template<class OBJ, class PAINT, typename ...Args> 
 void operate_obj(Console::Objects::TScore& obj, PAINT& p, TPool& pool, QPoint offset)
 {
-    printf("***paint SCORE %d\n", obj.get_id());
+    printf("***paint SCORE %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     p.fillRect(offset.x(), offset.y(), obj.get_width(), obj.get_height(), obj.get_bg_colour());
     operate_children(obj.get_children(), p, pool, offset);
@@ -61,7 +61,7 @@ void operate_obj(Console::Objects::TScore& obj, PAINT& p, TPool& pool, QPoint of
 template<class OBJ, class PAINT, typename ...Args> 
 void operate_obj(Console::Objects::TBoard& obj, PAINT& p, TPool& pool, QPoint offset)
 {
-    printf("***paint BOARD %d\n", obj.get_id());
+    printf("***paint BOARD %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     p.fillRect(offset.x(), offset.y(), obj.get_width(), obj.get_height(), obj.get_bg_colour());
     operate_children(obj.get_children(), p, pool, offset);
