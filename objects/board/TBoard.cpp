@@ -36,6 +36,18 @@ const QList<uint16_t>& TBoard::get_children()
 }
 
 
+void TBoard::set_weapon_id(object_id_t w)
+{
+    weapon_id = w;
+}
+
+
+object_id_t TBoard::get_weapon_id()
+{
+    return weapon_id;
+}
+
+
 void TBoard::set_block_size(uint16_t bs)
 {
     block_size = bs;

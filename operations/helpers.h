@@ -2,11 +2,7 @@
 #define HELPERS_H
 
 #include "operations/painter.h"
-#include "objects/TObject.h"
-#include "objects/TGame.h"
-#include "objects/board/TBoard.h"
-#include "objects/control/TControl.h"
-#include "objects/storage/TStorage.h"
+#include "objects/All_objects.h"
 
 namespace Console {
 namespace Operations {
@@ -28,11 +24,19 @@ void operate(Console::Objects::TObject& obj, OP& op, Args&& ...args)
         printf("***Found BOARD\n");
         operate_obj<Console::Objects::TBoard&>(static_cast<Console::Objects::TBoard&>(obj), op, args...);
         break;
+    case Console::Objects::TObject::TYPE_WEAPON:
+        printf("***Found WEAPON\n");
+        operate_obj<Console::Objects::TWeapon&>(static_cast<Console::Objects::TWeapon&>(obj), op, args...);
+        break;
+    case Console::Objects::TObject::TYPE_TURRET:
+        printf("***Found TURRET\n");
+        operate_obj<Console::Objects::TTurret&>(static_cast<Console::Objects::TTurret&>(obj), op, args...);
+        break;
     case Console::Objects::TObject::TYPE_CONTROL:
         printf("***Found CONTROL\n");
         operate_obj<Console::Objects::TControl&>(static_cast<Console::Objects::TControl&>(obj), op, args...);
         break;
-        case Console::Objects::TObject::TYPE_STORAGE:
+    case Console::Objects::TObject::TYPE_STORAGE:
         printf("***Found STORAGE\n");
         operate_obj<Console::Objects::TStorage&>(static_cast<Console::Objects::TStorage&>(obj), op, args...);
         break;

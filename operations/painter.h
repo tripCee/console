@@ -2,11 +2,7 @@
 #define PAINTER_H
 
 #include "TPool.h"
-#include "objects/TObject.h"
-#include "objects/TGame.h"
-#include "objects/board/TBoard.h"
-#include "objects/control/TControl.h"
-#include "objects/storage/TStorage.h"
+#include "objects/All_objects.h"
 
 #include <QPainter>
 #include <QImage>
@@ -120,6 +116,32 @@ void operate_obj(Console::Objects::TBoard& obj, PAINT& p, TPool& pool, QPoint of
         p.drawLine(QPoint(offset.x(), i), QPoint(right, i));
     }
     p.restore();
+
+    // Weapon
+    auto weapon = pool.get_object(obj.get_weapon_id());
+    if (weapon) operate(*weapon, p, pool, offset);
+
+    //operate_children(obj.get_children(), p, pool, offset);
+}
+
+
+template<class OBJ, class PAINT, typename ...Args> 
+void operate_obj(Console::Objects::TTurret& obj, PAINT& p, TPool& pool, QPoint offset)
+{
+    printf("***paint TURRET %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+
+    QPoint turret_pos = offset + QPoint(obj.get_width(), obj.get_width());
+    QRect rect(turret_pos.x(), turret_pos.y(), obj.get_width(), obj.get_width());
+
+    QPixmap sprite = obj.get_sprite();
+    if (obj.get_gun_direction() != 0)
+    {
+        QTransform transform;
+        QTransform trans = transform.rotate(obj.get_gun_direction());
+        sprite = obj.get_sprite().transformed(trans);
+    }
+
+    p.drawPixmap(rect, sprite);
 
     //operate_children(obj.get_children(), p, pool, offset);
 }

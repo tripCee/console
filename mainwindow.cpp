@@ -1,11 +1,7 @@
 #include "mainwindow.h"
 #include "operations/helpers.h"
 #include "operations/painter.h"
-#include "objects/TGame.h"
-#include "objects/score/TScore.h"
-#include "objects/board/TBoard.h"
-#include "objects/control/TControl.h"
-#include "objects/storage/TStorage.h"
+#include "objects/All_objects.h"
 
 #include <QPainter>
 
@@ -47,6 +43,7 @@ void MainWindow::Init_test_game()
 
     int board_width = qMin(int(CONSOLE_HEIGHT), qRound(CONSOLE_WIDTH * max_width));
     int block_size = qRound(float(board_width - (2 * border_width)) / 50.0);
+    uint16_t turret_size = 4 * block_size;
     int score_width = qRound((float(CONSOLE_WIDTH - board_width) / 2.0));
     int control_height = CONSOLE_HEIGHT - board_width;
     int storage_width = score_width;
@@ -57,9 +54,15 @@ void MainWindow::Init_test_game()
     id += 1;
     Console::Objects::TBoard* board = new Console::Objects::TBoard(id, board_width, board_width, border_width, Qt::white, block_size);
     id += 1;
+    Console::Objects::TTurret* turret = new Console::Objects::TTurret(id, turret_size, turret_size, Qt::darkCyan);
+    id += 1;
     Console::Objects::TControl* control = new Console::Objects::TControl(id, board_width, control_height, border_width, Qt::green);
     id += 1;
     Console::Objects::TStorage* storage = new Console::Objects::TStorage(id, score_width, CONSOLE_HEIGHT, border_width, Qt::blue);
+
+    turret->set_gun_direction(45);
+
+    board->set_weapon_id(turret->get_id());
 
     game->set_score_id(score->get_id());
     game->set_control_id(control->get_id());
@@ -69,6 +72,7 @@ void MainWindow::Init_test_game()
     pool.add_game(game->get_id(), game);
     pool.add_object(score->get_id(), score);
     pool.add_object(board->get_id(), board);
+    pool.add_object(turret->get_id(), turret);
     pool.add_object(control->get_id(), control);
     pool.add_object(storage->get_id(), storage);
 

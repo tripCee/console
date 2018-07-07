@@ -19,12 +19,15 @@ public:
 
     void add_child(object_id_t cid);
     const QList<object_id_t>& get_children();
+    void set_weapon_id(object_id_t w);
+    object_id_t get_weapon_id();
     void set_block_size(uint16_t bs);
     uint16_t get_block_size();
 
 private:
     //grid
     QList<object_id_t> children;
+    object_id_t weapon_id;
     uint16_t block_size;
 };
 

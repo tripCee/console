@@ -33,6 +33,7 @@ SOURCES += \
 HEADERS += \
         mainwindow.h \
 	TPool.h \
+	objects/All_objects.h \
 	objects/TObject.h \
 	objects/TGame.h \
 	objects/board/TBoard.h \
