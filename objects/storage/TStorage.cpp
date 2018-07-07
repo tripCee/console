@@ -10,8 +10,8 @@ TStorage::TStorage():
 }
 
 
-TStorage::TStorage(object_id_t id, uint16_t w, uint16_t h, QColor bgc): 
-    TObject(TObject::TYPE_STORAGE, id, w, h, bgc),
+TStorage::TStorage(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc): 
+    TObject(TObject::TYPE_STORAGE, id, w, h, bw, bgc),
     children(QList<object_id_t>())
 {
 }

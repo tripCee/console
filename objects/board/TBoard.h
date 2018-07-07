@@ -14,7 +14,7 @@ class TBoard : public TObject
 
 public:
     TBoard();
-    TBoard(object_id_t id, uint16_t w, uint16_t h, QColor bgc, uint16_t block_size);
+    TBoard(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc, uint16_t block_size);
     ~TBoard();
 
     void add_child(object_id_t cid);

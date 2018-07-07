@@ -67,7 +67,18 @@ void operate_obj(Console::Objects::TScore& obj, PAINT& p, TPool& pool, QPoint of
 {
     printf("***paint SCORE %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
-    p.fillRect(offset.x(), offset.y(), obj.get_width(), obj.get_height(), obj.get_bg_colour());
+    uint16_t bw = obj.get_border_width();
+    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
+
+    p.save();
+    QPen rect_pen(Qt::gray);
+    rect_pen.setWidth(bw);
+    p.setPen(rect_pen);
+    QBrush rect_brush(obj.get_bg_colour());
+    p.setBrush(rect_brush);
+    p.drawRect(inner_rect);
+    p.restore();
+
     //operate_children(obj.get_children(), p, pool, offset);
 }
 
@@ -77,24 +88,34 @@ void operate_obj(Console::Objects::TBoard& obj, PAINT& p, TPool& pool, QPoint of
 {
     printf("***paint BOARD %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
-    p.fillRect(offset.x(), offset.y(), obj.get_width(), obj.get_height(), obj.get_bg_colour());
+    uint16_t bw = obj.get_border_width();
+    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
+
+    p.save();
+    QPen rect_pen(Qt::gray);
+    rect_pen.setWidth(bw);
+    p.setPen(rect_pen);
+    QBrush rect_brush(obj.get_bg_colour());
+    p.setBrush(rect_brush);
+    p.drawRect(inner_rect);
+    p.restore();
 
     // Grid
     p.save();
-    QPen pen(QColor(255, 0, 0, 100));
-    p.setPen(pen);
-    int start_v = offset.x();
-    int start_h = offset.y();
-    int end_v = offset.x() + obj.get_width();
-    int end_h = offset.y() + obj.get_height();
-    int increment = obj.get_block_size() - pen.width();
-    int bottom = offset.y() + obj.get_height();
-    int right = offset.x() + obj.get_width();
-    for (int i = start_v; i < end_v; i += increment)
+    QPen grid_pen(QColor(0, 0, 0, 50));
+    p.setPen(grid_pen);
+    int start_x = inner_rect.x();
+    int start_y = inner_rect.y();
+    int end_v = start_x + inner_rect.width();
+    int end_h = start_y + inner_rect.height();
+    int increment = obj.get_block_size() - grid_pen.width();
+    int bottom = start_y + inner_rect.height();
+    int right = start_x + inner_rect.width();
+    for (int i = start_x; i < end_v; i += increment)
     {
         p.drawLine(QPoint(i, offset.y()), QPoint(i, bottom));
     }
-    for (int i = start_h; i < end_h; i += increment)
+    for (int i = start_y; i < end_h; i += increment)
     {
         p.drawLine(QPoint(offset.x(), i), QPoint(right, i));
     }
@@ -109,7 +130,18 @@ void operate_obj(Console::Objects::TControl& obj, PAINT& p, TPool& pool, QPoint 
 {
     printf("***paint CONTROL %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
-    p.fillRect(offset.x(), offset.y(), obj.get_width(), obj.get_height(), obj.get_bg_colour());
+    uint16_t bw = obj.get_border_width();
+    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
+
+    p.save();
+    QPen rect_pen(Qt::gray);
+    rect_pen.setWidth(bw);
+    p.setPen(rect_pen);
+    QBrush rect_brush(obj.get_bg_colour());
+    p.setBrush(rect_brush);
+    p.drawRect(inner_rect);
+    p.restore();
+
     //operate_children(obj.get_children(), p, pool, offset);
 }
 
@@ -119,7 +151,18 @@ void operate_obj(Console::Objects::TStorage& obj, PAINT& p, TPool& pool, QPoint 
 {
     printf("***paint STORAGE %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
-    p.fillRect(offset.x(), offset.y(), obj.get_width(), obj.get_height(), obj.get_bg_colour());
+    uint16_t bw = obj.get_border_width();
+    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
+
+    p.save();
+    QPen rect_pen(Qt::gray);
+    rect_pen.setWidth(bw);
+    p.setPen(rect_pen);
+    QBrush rect_brush(obj.get_bg_colour());
+    p.setBrush(rect_brush);
+    p.drawRect(inner_rect);
+    p.restore();
+
     //operate_children(obj.get_children(), p, pool, offset);
 }
 

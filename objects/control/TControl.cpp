@@ -10,8 +10,8 @@ TControl::TControl():
 }
 
 
-TControl::TControl(object_id_t id, uint16_t w, uint16_t h, QColor bgc): 
-    TObject(TObject::TYPE_CONTROL, id, w, h, bgc),
+TControl::TControl(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc): 
+    TObject(TObject::TYPE_CONTROL, id, w, h, bw, bgc),
     children(QList<object_id_t>())
 {
 }

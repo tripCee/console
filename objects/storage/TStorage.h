@@ -14,7 +14,7 @@ class TStorage : public TObject
 
 public:
     TStorage();
-    TStorage(object_id_t id, uint16_t w, uint16_t h, QColor bgc);
+    TStorage(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc);
     ~TStorage();
 
     void add_child(object_id_t cid);

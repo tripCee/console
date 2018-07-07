@@ -15,7 +15,7 @@ class TGame : public TObject
 
 public:
     //TGame();
-    TGame(object_id_t id, uint16_t w, uint16_t h, QColor bgc, uint16_t current_level);
+    TGame(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc, uint16_t current_level);
     ~TGame();
 
     void set_score_id(object_id_t id);

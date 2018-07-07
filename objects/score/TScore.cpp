@@ -10,8 +10,8 @@ TScore::TScore():
 }
 
 
-TScore::TScore(object_id_t id, uint16_t w, uint16_t h, QColor bgc): 
-    TObject(TObject::TYPE_SCORE, id, w, h, bgc),
+TScore::TScore(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc): 
+    TObject(TObject::TYPE_SCORE, id, w, h, bw, bgc),
     children(QList<object_id_t>())
 {
 }

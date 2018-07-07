@@ -14,7 +14,7 @@ class TScore : public TObject
 
 public:
     TScore();
-    TScore(object_id_t id, uint16_t w, uint16_t h, QColor bgC);
+    TScore(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgC);
     ~TScore();
 
     void add_child(object_id_t cid);

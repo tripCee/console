@@ -43,22 +43,23 @@ void MainWindow::Init_test_game()
 {
     object_id_t id = 1;
     float max_width = 0.6;
+    uint16_t border_width = 5;
 
     int board_width = qMin(int(CONSOLE_HEIGHT), qRound(CONSOLE_WIDTH * max_width));
-    int block_size = qRound(float(board_width) / 50.0);
+    int block_size = qRound(float(board_width - (2 * border_width)) / 50.0);
     int score_width = qRound((float(CONSOLE_WIDTH - board_width) / 2.0));
     int control_height = CONSOLE_HEIGHT - board_width;
     int storage_width = score_width;
 
-    Console::Objects::TGame* game = new Console::Objects::TGame(id, CONSOLE_WIDTH, CONSOLE_HEIGHT, Qt::black, 1);
+    Console::Objects::TGame* game = new Console::Objects::TGame(id, CONSOLE_WIDTH, CONSOLE_HEIGHT, border_width, Qt::black, 1);
     id += 1;
-    Console::Objects::TScore* score = new Console::Objects::TScore(id, score_width, CONSOLE_HEIGHT, Qt::red);
+    Console::Objects::TScore* score = new Console::Objects::TScore(id, score_width, CONSOLE_HEIGHT, border_width, Qt::red);
     id += 1;
-    Console::Objects::TBoard* board = new Console::Objects::TBoard(id, board_width, board_width, Qt::white, block_size);
+    Console::Objects::TBoard* board = new Console::Objects::TBoard(id, board_width, board_width, border_width, Qt::white, block_size);
     id += 1;
-    Console::Objects::TControl* control = new Console::Objects::TControl(id, board_width, control_height, Qt::green);
+    Console::Objects::TControl* control = new Console::Objects::TControl(id, board_width, control_height, border_width, Qt::green);
     id += 1;
-    Console::Objects::TStorage* storage = new Console::Objects::TStorage(id, score_width, CONSOLE_HEIGHT, Qt::blue);
+    Console::Objects::TStorage* storage = new Console::Objects::TStorage(id, score_width, CONSOLE_HEIGHT, border_width, Qt::blue);
 
     game->set_score_id(score->get_id());
     game->set_control_id(control->get_id());

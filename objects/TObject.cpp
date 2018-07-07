@@ -8,17 +8,19 @@ TObject::TObject():
     id(0),
     width(0),
     height(0),
+    border_width(0),
     bg_colour()
 {
 }
 
 
-TObject::TObject(type_t object_type, object_id_t id, uint16_t w, uint16_t h, QColor bgc): 
+TObject::TObject(type_t object_type, object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc): 
     //QObject(),
     type(object_type),
     id(id),
     width(w),
     height(h),
+    border_width(bw),
     bg_colour(bgc)
 {
     
@@ -67,6 +69,12 @@ void TObject::set_height(uint16_t h)
 }
 
 
+void TObject::set_border_width(uint16_t bw)
+{
+    border_width = bw;
+}
+
+
 uint16_t TObject::get_width()
 {
     return width;
@@ -76,6 +84,12 @@ uint16_t TObject::get_width()
 uint16_t TObject::get_height()
 {
     return height;
+}
+
+
+uint16_t TObject::get_border_width()
+{
+    return border_width;
 }
 
 

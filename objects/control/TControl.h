@@ -14,7 +14,7 @@ class TControl : public TObject
 
 public:
     TControl();
-    TControl(object_id_t id, uint16_t w, uint16_t h, QColor bgc);
+    TControl(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc);
     ~TControl();
 
     void add_child(object_id_t cid);

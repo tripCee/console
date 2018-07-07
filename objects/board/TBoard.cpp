@@ -11,8 +11,8 @@ TBoard::TBoard():
 }
 
 
-TBoard::TBoard(object_id_t id, uint16_t w, uint16_t h, QColor bgc, uint16_t block_size): 
-    TObject(TObject::TYPE_BOARD, id, w, h, bgc),
+TBoard::TBoard(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc, uint16_t block_size): 
+    TObject(TObject::TYPE_BOARD, id, w, h, bw, bgc),
     children(QList<object_id_t>()),
     block_size(block_size)
 {
