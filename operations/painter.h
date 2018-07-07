@@ -134,14 +134,17 @@ void operate_obj(Console::Objects::TTurret& obj, PAINT& p, TPool& pool, QPoint o
     QRect rect(turret_pos.x(), turret_pos.y(), obj.get_width(), obj.get_width());
 
     QPixmap sprite = obj.get_sprite();
-    if (obj.get_gun_direction() != 0)
-    {
-        QTransform transform;
-        QTransform trans = transform.rotate(obj.get_gun_direction());
-        sprite = obj.get_sprite().transformed(trans);
-    }
 
-    p.drawPixmap(rect, sprite);
+    p.save();
+    qreal scale = qMin(sprite.width(), sprite.height()) / qMax(sprite.width(), sprite.height());
+    QPointF center(sprite.width() / 2.0, sprite.height() / 2.0); // widget center
+    // uncomment to trade performance for quality
+    //  painter.setRenderHint(QPainter::SmoothPixmapTransform);
+    p.translate(center + turret_pos);
+    p.rotate(obj.get_gun_direction());
+    p.scale(scale, scale);
+    p.drawPixmap(-center, sprite);
+    p.restore();
 
     //operate_children(obj.get_children(), p, pool, offset);
 }
