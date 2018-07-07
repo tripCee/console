@@ -20,7 +20,11 @@ public:
         TYPE_SCORE = 1,
         TYPE_BOARD = 2,
         TYPE_CONTROL = 3,
-        TYPE_STORAGE = 4
+        TYPE_STORAGE = 4,
+
+        // Weapons
+        TYPE_WEAPON = 5,
+        TYPE_TURRET = 50
     };
 
     TObject();

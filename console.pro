@@ -24,6 +24,8 @@ SOURCES += \
 	objects/TObject.cpp \
 	objects/TGame.cpp \
 	objects/board/TBoard.cpp \
+	objects/board/weapon/TWeapon.cpp \
+	objects/board/weapon/TTurret.cpp \
 	objects/score/TScore.cpp \
 	objects/control/TControl.cpp \
 	objects/storage/TStorage.cpp
@@ -34,6 +36,8 @@ HEADERS += \
 	objects/TObject.h \
 	objects/TGame.h \
 	objects/board/TBoard.h \
+	objects/board/weapon/TWeapon.h \
+	objects/board/weapon/TTurret.h \
 	objects/score/TScore.h \
 	objects/control/TControl.h \
 	objects/storage/TStorage.h \
