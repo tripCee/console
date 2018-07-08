@@ -5,7 +5,7 @@ namespace Objects {
 
 TBoard::TBoard(): 
     TObject(),
-    children(QList<object_id_t>()),
+    children(QVector<QPair<object_id_t, QPoint>>()),
     block_size(0)
 {
 }
@@ -13,7 +13,7 @@ TBoard::TBoard():
 
 TBoard::TBoard(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc, uint16_t block_size): 
     TObject(TObject::TYPE_BOARD, id, w, h, bw, bgc),
-    children(QList<object_id_t>()),
+    children(QVector<QPair<object_id_t, QPoint>>()),
     block_size(block_size)
 {
 }
@@ -24,13 +24,13 @@ TBoard::~TBoard()
 }
 
 
-void TBoard::add_child(object_id_t cid)
+void TBoard::add_child(object_id_t cid, QPoint pos)
 {
-    children.append(cid);
+    children.push_back(QPair<object_id_t, QPoint>(cid, pos));
 }
 
 
-const QList<uint16_t>& TBoard::get_children()
+const QVector<QPair<object_id_t, QPoint>>& TBoard::get_children()
 {
     return children;
 }

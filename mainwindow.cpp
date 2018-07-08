@@ -67,7 +67,7 @@ void MainWindow::Init_test_game()
     game->set_score_id(score->get_id());
     game->set_control_id(control->get_id());
     game->set_storage_id(storage->get_id());
-    game->add_child(board->get_id());
+    game->add_level(board->get_id());
 
     pool.add_game(game->get_id(), game);
     pool.add_object(score->get_id(), score);

@@ -4,7 +4,7 @@
 #include "objects/TObject.h"
 #include "objects/score/TScore.h"
 
-#include <QList>
+//#include <QList>
 
 namespace Console {
 namespace Objects {
@@ -24,8 +24,8 @@ public:
     object_id_t get_control_id();
     void set_storage_id(object_id_t id);
     object_id_t get_storage_id();
-    void add_child(object_id_t cid);
-    const QList<object_id_t>& get_children();
+    void add_level(object_id_t cid);
+    const QVector<object_id_t>& get_levels();
     object_id_t get_current_board_id();
     void set_current_level(uint16_t bs);
     uint16_t get_current_level();
@@ -34,7 +34,7 @@ private:
     object_id_t score_id;
     object_id_t control_id;
     object_id_t storage_id;
-    QList<object_id_t> children;
+    QVector<object_id_t> levels;
     uint16_t current_level;
 };
 

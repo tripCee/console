@@ -3,8 +3,6 @@
 
 #include "objects/TObject.h"
 
-#include <QList>
-
 namespace Console {
 namespace Objects {
 

@@ -37,7 +37,7 @@ QPixmap TTurret::get_sprite()
     QPoint inner_offset(ring_width, ring_width);
     QRect rect(0, 0, get_width(), get_height());
     QRect inner_rect(inner_offset.x(), inner_offset.y(), get_width() - (2 * ring_width), get_width() - (2 * ring_width));
-    QRect gun_rect(int(get_width() / 2) - int(gun_width / 2), int(get_width() / 2), gun_width, gun_height);
+    QRect gun_rect(int(get_width() / 2) - int(gun_width / 2), int(get_width() / 2) - gun_height, gun_width, gun_height);
 
     p.save();
     QPen outer_pen(Qt::transparent);

@@ -1,7 +1,6 @@
 #ifndef TOBJECT_H
 #define TOBJECT_H
 
-//#include <QObject>
 #include <QColor>
 #include <QPixmap>
 
@@ -10,10 +9,8 @@ typedef uint16_t object_id_t;
 namespace Console {
 namespace Objects {
 
-class TObject //: public QObject
+class TObject
 {
-    //Q_OBJECT
-
 public:
     enum type_t {
         TYPE_GAME = 0,
