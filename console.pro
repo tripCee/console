@@ -42,5 +42,6 @@ HEADERS += \
 	objects/score/TScore.h \
 	objects/control/TControl.h \
 	objects/storage/TStorage.h \
-       	operations/painter.h \
-	operations/helpers.h
+    operations/painter.h \
+	operations/helpers.h \
+	operations/input_handler.h

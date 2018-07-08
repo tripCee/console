@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "operations/helpers.h"
 #include "operations/painter.h"
+#include "operations/input_handler.h"
 #include "objects/All_objects.h"
 
 #include <QPainter>
@@ -34,6 +35,33 @@ void MainWindow::paintEvent(QPaintEvent *event)
     Console::Operations::painter op(this);
     Console::Operations::operate(*game, op, pool, QPoint(0, 0)); 
 }
+
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    printf("KEY PRESS\n");
+
+    Console::Objects::TGame* game = pool.get_game();
+
+    if (!game) return;
+
+    Console::Operations::input_handler op(event->type(), event->key(), event->modifiers());
+    Console::Operations::operate(*game, op, pool);
+}
+
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    printf("KEY RELEASE\n");
+
+    Console::Objects::TGame* game = pool.get_game();
+
+    if (!game) return;
+
+    Console::Operations::input_handler op(event->type(), event->key(), event->modifiers());
+    Console::Operations::operate(*game, op, pool);
+}
+
 
 void MainWindow::Init_test_game()
 {
