@@ -45,7 +45,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
     if (!game) return;
 
-    Console::Operations::input_handler op(event->type(), event->key(), event->modifiers());
+    Console::Operations::input_handler op(event->type(), event->key(), QPoint());
     Console::Operations::operate(*game, op, pool);
 }
 
@@ -58,8 +58,10 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 
     if (!game) return;
 
-    Console::Operations::input_handler op(event->type(), event->key(), event->modifiers());
+    Console::Operations::input_handler op(event->type(), event->key(), QPoint());
     Console::Operations::operate(*game, op, pool);
+
+    this->update();
 }
 
 
@@ -88,13 +90,15 @@ void MainWindow::Init_test_game()
     id += 1;
     Console::Objects::TStorage* storage = new Console::Objects::TStorage(id, score_width, CONSOLE_HEIGHT, border_width, Qt::blue);
 
-    turret->set_gun_direction(45);
+    //turret->set_gun_direction(45);
+    turret->set_gun_rotate_speed(5);
 
     board->set_weapon_id(turret->get_id());
 
     game->set_score_id(score->get_id());
     game->set_control_id(control->get_id());
     game->set_storage_id(storage->get_id());
+    game->set_weapon_id(turret->get_id());
     game->add_level(board->get_id());
 
     pool.add_game(game->get_id(), game);

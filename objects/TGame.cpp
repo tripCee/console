@@ -61,6 +61,18 @@ object_id_t TGame::get_storage_id()
 }
 
 
+void TGame::set_weapon_id(object_id_t id)
+{
+    weapon_id = id;
+}
+
+
+object_id_t TGame::get_weapon_id()
+{
+    return weapon_id;
+}
+
+
 void TGame::add_level(object_id_t cid)
 {
     levels.push_back(cid);

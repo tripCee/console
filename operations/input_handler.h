@@ -12,14 +12,29 @@
 namespace Console {
 namespace Operations {
 
-class input_handler : public QKeyEvent
+class key_event : public QKeyEvent
 {
-
 public:
-    input_handler(QEvent::Type type, int key, Qt::KeyboardModifiers modifiers):
+    key_event(QEvent::Type type, int key, Qt::KeyboardModifiers modifiers, TPool& pool):
         QKeyEvent(type, key, modifiers)
     {}
 
+
+};
+
+class input_handler
+{
+
+public:
+    input_handler(QEvent::Type type, int key, QPointF pos):
+        type(type), 
+        key(key), 
+        pos(pos)
+    {}
+
+    QEvent::Type type;
+    int key;
+    QPointF pos;
 };
 
 
@@ -34,6 +49,17 @@ template<class OBJ, class IH, typename ...Args>
 void operate_obj(Console::Objects::TGame& obj, IH& ih, TPool& pool)
 {
     printf("***input_handler GAME %d\n", obj.get_id());
+
+    // FIXME: Temp direct control of weapon
+    auto weapon_id = obj.get_weapon_id();
+    auto weapon = pool.get_object(weapon_id);
+
+    operate(*weapon, ih, pool);
+
+    // auto control_id = obj.get_control_id();
+    // auto control = pool.get_object(control_id);
+
+    // operate(*control, ih, pool);
 }
 
 
@@ -56,8 +82,20 @@ void operate_obj(Console::Objects::TBoard& obj, IH& ih, TPool& pool)
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TTurret& obj, IH& ih, TPool& pool)
 {
-    printf("***input_handler TURRET %d\n", obj.get_id());
+    printf("***input_handler TURRET %d [%d]\n", obj.get_id(), ih.key);
 
+    // FIXME: Temp direct control of weapon
+    switch (ih.key)
+    {
+        case Qt::Key_Left:
+            obj.rotate_gun_acw();
+            break;
+        case Qt::Key_Right:
+            obj.rotate_gun_cw();
+            break;
+        default:
+            break;
+    }
 }
 
 
