@@ -6,6 +6,8 @@
 #include "objects/board/TBoard.h"
 #include "objects/board/weapon/TWeapon.h"
 #include "objects/board/weapon/TTurret.h"
+#include "objects/board/ammunition/TAmmunition.h"
+#include "objects/board/ammunition/TBullet.h"
 #include "objects/control/TControl.h"
 #include "objects/storage/TStorage.h"
 

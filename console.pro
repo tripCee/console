@@ -26,6 +26,8 @@ SOURCES += \
 	objects/board/TBoard.cpp \
 	objects/board/weapon/TWeapon.cpp \
 	objects/board/weapon/TTurret.cpp \
+	objects/board/ammunition/TAmmunition.cpp \
+	objects/board/ammunition/TBullet.cpp \
 	objects/score/TScore.cpp \
 	objects/control/TControl.cpp \
 	objects/storage/TStorage.cpp
@@ -39,6 +41,8 @@ HEADERS += \
 	objects/board/TBoard.h \
 	objects/board/weapon/TWeapon.h \
 	objects/board/weapon/TTurret.h \
+	objects/board/ammunition/TAmmunition.h \
+	objects/board/ammunition/TBullet.h \
 	objects/score/TScore.h \
 	objects/control/TControl.h \
 	objects/storage/TStorage.h \

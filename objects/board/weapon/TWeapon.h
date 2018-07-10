@@ -19,6 +19,8 @@ public:
 
     void add_child(object_id_t cid);
     const QList<object_id_t>& get_children();
+    void set_ammunition_id(object_id_t id);
+    object_id_t get_ammunition_id();
     void set_speed(uint8_t s);
     uint8_t get_speed();
     void set_max_speed(uint8_t ms);
@@ -40,6 +42,8 @@ public:
 
 private:
     QList<object_id_t> children;
+    //FIXME: Not like this
+    object_id_t ammunition_id;
     uint8_t speed;
     uint8_t max_speed;
     uint8_t rotate_speed;

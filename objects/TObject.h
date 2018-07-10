@@ -21,7 +21,11 @@ public:
 
         // Weapons
         TYPE_WEAPON = 5,
-        TYPE_TURRET = 50
+        TYPE_TURRET = 50,
+
+        // Ammunition
+        TYPE_AMMUNITION = 6,
+        TYPE_BULLET = 60
     };
 
     TObject();

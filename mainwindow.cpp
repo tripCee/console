@@ -74,6 +74,7 @@ void MainWindow::Init_test_game()
     int board_width = qMin(int(CONSOLE_HEIGHT), qRound(CONSOLE_WIDTH * max_width));
     int block_size = qRound(float(board_width - (2 * border_width)) / 50.0);
     uint16_t turret_size = 4 * block_size;
+    uint16_t bullet_size = qRound(turret_size * 0.2);
     int score_width = qRound((float(CONSOLE_WIDTH - board_width) / 2.0));
     int control_height = CONSOLE_HEIGHT - board_width;
     int storage_width = score_width;
@@ -86,12 +87,15 @@ void MainWindow::Init_test_game()
     id += 1;
     Console::Objects::TTurret* turret = new Console::Objects::TTurret(id, turret_size, turret_size, Qt::darkCyan);
     id += 1;
+    Console::Objects::TBullet* bullet = new Console::Objects::TBullet(id, bullet_size, bullet_size, Qt::darkGreen);
+    id += 1;
     Console::Objects::TControl* control = new Console::Objects::TControl(id, board_width, control_height, border_width, Qt::green);
     id += 1;
     Console::Objects::TStorage* storage = new Console::Objects::TStorage(id, score_width, CONSOLE_HEIGHT, border_width, Qt::blue);
 
     //turret->set_gun_direction(45);
     turret->set_gun_rotate_speed(5);
+    turret->set_ammunition_id(bullet->get_id());
 
     board->set_weapon_id(turret->get_id());
 
@@ -105,6 +109,7 @@ void MainWindow::Init_test_game()
     pool.add_object(score->get_id(), score);
     pool.add_object(board->get_id(), board);
     pool.add_object(turret->get_id(), turret);
+    pool.add_object(bullet->get_id(), bullet);
     pool.add_object(control->get_id(), control);
     pool.add_object(storage->get_id(), storage);
 

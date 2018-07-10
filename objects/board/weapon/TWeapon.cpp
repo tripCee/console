@@ -34,6 +34,18 @@ const QList<uint16_t>& TWeapon::get_children()
 }
 
 
+void TWeapon::set_ammunition_id(object_id_t id)
+{
+    ammunition_id = id;
+}
+
+
+object_id_t TWeapon::get_ammunition_id()
+{
+    return ammunition_id;
+}
+
+
 void TWeapon::set_speed(uint8_t s)
 {
     speed = s;
