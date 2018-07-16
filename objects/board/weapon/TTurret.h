@@ -14,16 +14,19 @@ class TTurret : public TWeapon
 
 public:
     TTurret();
-    TTurret(object_id_t id, uint16_t w, uint16_t h, QColor bgc);
+    TTurret(object_id_t id, uint16_t w, uint16_t h, QColor bgc, QColor sc);
     ~TTurret();
 
     virtual QPixmap get_sprite();
 
     void add_child(object_id_t cid);
     const QList<object_id_t>& get_children();
+    void set_secondary_colour(QColor colour);
+    QColor get_secondary_colour();
 
 private:
     QList<object_id_t> children;
+    QColor secondary_colour;
 
 };
 

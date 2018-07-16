@@ -85,7 +85,7 @@ void MainWindow::Init_test_game()
     id += 1;
     Console::Objects::TBoard* board = new Console::Objects::TBoard(id, board_width, board_width, border_width, Qt::white, block_size);
     id += 1;
-    Console::Objects::TTurret* turret = new Console::Objects::TTurret(id, turret_size, turret_size, Qt::darkCyan);
+    Console::Objects::TTurret* turret = new Console::Objects::TTurret(id, turret_size, turret_size, Qt::darkCyan, Qt::cyan);
     id += 1;
     Console::Objects::TBullet* bullet = new Console::Objects::TBullet(id, bullet_size, bullet_size, Qt::darkGreen);
     id += 1;

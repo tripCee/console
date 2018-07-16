@@ -44,11 +44,10 @@ void operate_obj(Console::Objects::TGame& obj, PAINT& p, TPool& pool, QPoint off
     auto score = pool.get_object(obj.get_score_id());
     if (score) operate(*score, p, pool, offset);
 
-    // Board FIXME: Use level
+    // Board (for current level)
     offset += QPoint(score ? score->get_width() : 0, 0);
     auto board = pool.get_object(obj.get_current_board_id());
     if (board) operate(*board, p, pool, offset);
-    //operate_children(obj.get_children(), p, pool, offset);
 
     // Control
     offset += QPoint(0, board ? board->get_height() : 0);

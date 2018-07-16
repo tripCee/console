@@ -12,9 +12,10 @@ TTurret::TTurret():
 }
 
 
-TTurret::TTurret(object_id_t id, uint16_t w, uint16_t h, QColor bgc): 
+TTurret::TTurret(object_id_t id, uint16_t w, uint16_t h, QColor bgc, QColor sc): 
     TWeapon(id, w, h, bgc, TObject::TYPE_TURRET),
-    children(QList<object_id_t>())
+    children(QList<object_id_t>()),
+    secondary_colour(sc)
 {
 }
 
@@ -43,11 +44,10 @@ QPixmap TTurret::get_sprite()
     QPen outer_pen(Qt::transparent);
     outer_pen.setWidth(0);
     p.setPen(outer_pen);
-    // FIXME: add secondary colour to turret
     QBrush outer_brush(get_bg_colour());
     p.setBrush(outer_brush);
     p.drawEllipse(rect);
-    QBrush inner_brush(Qt::cyan);
+    QBrush inner_brush(secondary_colour);
     p.setBrush(inner_brush);
     p.drawEllipse(inner_rect);
     p.drawRect(gun_rect);
@@ -66,6 +66,18 @@ void TTurret::add_child(object_id_t cid)
 const QList<uint16_t>& TTurret::get_children()
 {
     return children;
+}
+
+
+void TTurret::set_secondary_colour(QColor colour)
+{
+    secondary_colour = colour;
+}
+
+
+QColor TTurret::get_secondary_colour()
+{
+    return secondary_colour;
 }
 
 
