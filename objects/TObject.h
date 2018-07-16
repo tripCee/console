@@ -25,7 +25,13 @@ public:
 
         // Ammunition
         TYPE_AMMUNITION = 6,
-        TYPE_BULLET = 60
+        TYPE_BULLET = 60,
+
+	// Controls
+	TYPE_LEFT_BUTTON = 30,
+	TYPE_RIGHT_BUTTON = 31,
+	TYPE_UP_BUTTON = 32,
+	TYPE_DOWN_BUTTON = 33
     };
 
     TObject();
