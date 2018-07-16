@@ -173,7 +173,15 @@ void operate_obj(Console::Objects::TControl& obj, PAINT& p, TPool& pool, QPoint 
     p.drawRect(inner_rect);
     p.restore();
 
-    //operate_children(obj.get_children(), p, pool, offset);
+    operate_children(obj.get_children(), p, pool, offset);
+}
+
+
+template<class OBJ, class PAINT, typename ...Args> 
+void operate_obj(Console::Objects::TControl& obj, PAINT& p, TPool& pool, QPoint offset)
+{
+    Q_UNUSED(pool);
+    printf("***paint LEFT BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 }
 
 
