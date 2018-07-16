@@ -91,7 +91,7 @@ void MainWindow::Init_test_game()
     id += 1;
     Console::Objects::TControl* control = new Console::Objects::TControl(id, board_width, control_height, border_width, Qt::green);
     id += 1;
-    Console::Objects::TStorage* storage = new Console::Objects::TStorage(id, score_width, CONSOLE_HEIGHT, border_width, Qt::blue);
+    Console::Objects::TStorage* storage = new Console::Objects::TStorage(id, storage_width, CONSOLE_HEIGHT, border_width, Qt::blue);
 
     //turret->set_gun_direction(45);
     turret->set_gun_rotate_speed(5);

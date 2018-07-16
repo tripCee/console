@@ -41,6 +41,9 @@ public:
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(OBJ& obj, IH& ih, TPool& pool)
 {
+    Q_UNUSED(obj);
+    Q_UNUSED(ih);
+    Q_UNUSED(pool);
     printf("***input_handler default\n");
 }
 
@@ -66,6 +69,9 @@ void operate_obj(Console::Objects::TGame& obj, IH& ih, TPool& pool)
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TScore& obj, IH& ih, TPool& pool)
 {
+    Q_UNUSED(obj);
+    Q_UNUSED(ih);
+    Q_UNUSED(pool);
     printf("***input_handler SCORE %d\n", obj.get_id());
 
 }
@@ -74,6 +80,9 @@ void operate_obj(Console::Objects::TScore& obj, IH& ih, TPool& pool)
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TBoard& obj, IH& ih, TPool& pool)
 {
+    Q_UNUSED(obj);
+    Q_UNUSED(ih);
+    Q_UNUSED(pool);
     printf("***input_handler BOARD %d\n", obj.get_id());
 
 }
@@ -82,6 +91,7 @@ void operate_obj(Console::Objects::TBoard& obj, IH& ih, TPool& pool)
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TTurret& obj, IH& ih, TPool& pool)
 {
+    Q_UNUSED(pool);
     printf("***input_handler TURRET %d [%d]\n", obj.get_id(), ih.key);
 
     // FIXME: Temp direct control of weapon
@@ -102,6 +112,9 @@ void operate_obj(Console::Objects::TTurret& obj, IH& ih, TPool& pool)
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TControl& obj, IH& ih, TPool& pool)
 {
+    Q_UNUSED(obj);
+    Q_UNUSED(ih);
+    Q_UNUSED(pool);
     printf("***input_handler CONTROL %d\n", obj.get_id());
 
 }
@@ -110,6 +123,9 @@ void operate_obj(Console::Objects::TControl& obj, IH& ih, TPool& pool)
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TStorage& obj, IH& ih, TPool& pool)
 {
+    Q_UNUSED(obj);
+    Q_UNUSED(ih);
+    Q_UNUSED(pool);
     printf("***input_handler STORAGE %d\n", obj.get_id());
 }
 

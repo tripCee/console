@@ -25,6 +25,10 @@ public:
 template<class OBJ, class PAINT, typename ...Args> 
 void operate_obj(OBJ& obj, PAINT& p, TPool& pool, QPoint offset)
 {
+    Q_UNUSED(obj);
+    Q_UNUSED(p);
+    Q_UNUSED(pool);
+    Q_UNUSED(offset);
     printf("***paint default\n");
 }
 
@@ -61,6 +65,7 @@ void operate_obj(Console::Objects::TGame& obj, PAINT& p, TPool& pool, QPoint off
 template<class OBJ, class PAINT, typename ...Args> 
 void operate_obj(Console::Objects::TScore& obj, PAINT& p, TPool& pool, QPoint offset)
 {
+    Q_UNUSED(pool);
     printf("***paint SCORE %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     uint16_t bw = obj.get_border_width();
@@ -128,6 +133,7 @@ void operate_obj(Console::Objects::TBoard& obj, PAINT& p, TPool& pool, QPoint of
 template<class OBJ, class PAINT, typename ...Args> 
 void operate_obj(Console::Objects::TTurret& obj, PAINT& p, TPool& pool, QPoint offset)
 {
+    Q_UNUSED(pool);
     printf("***paint TURRET %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     QPoint turret_pos = offset + QPoint(obj.get_width(), obj.get_width());
@@ -153,6 +159,7 @@ void operate_obj(Console::Objects::TTurret& obj, PAINT& p, TPool& pool, QPoint o
 template<class OBJ, class PAINT, typename ...Args> 
 void operate_obj(Console::Objects::TControl& obj, PAINT& p, TPool& pool, QPoint offset)
 {
+    Q_UNUSED(pool);
     printf("***paint CONTROL %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     uint16_t bw = obj.get_border_width();
@@ -174,6 +181,7 @@ void operate_obj(Console::Objects::TControl& obj, PAINT& p, TPool& pool, QPoint 
 template<class OBJ, class PAINT, typename ...Args> 
 void operate_obj(Console::Objects::TStorage& obj, PAINT& p, TPool& pool, QPoint offset)
 {
+    Q_UNUSED(pool);
     printf("***paint STORAGE %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     uint16_t bw = obj.get_border_width();

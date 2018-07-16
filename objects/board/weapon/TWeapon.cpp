@@ -95,11 +95,13 @@ void TWeapon::rotate_cw()
 
 void TWeapon::rotate_acw()
 {
-    direction -= rotate_speed;
-
-    if (direction < 0)
+    if (direction < rotate_speed)
     {
-        direction += 360;
+        direction += (360 - rotate_speed);
+    }
+    else
+    {
+	direction -= rotate_speed;
     }
 }
 
@@ -153,11 +155,13 @@ void TWeapon::rotate_gun_cw()
 
 void TWeapon::rotate_gun_acw()
 {
-    gun_direction -= gun_rotate_speed;
-
-    if (gun_direction < 0)
+    if (gun_direction < gun_rotate_speed)
     {
-        gun_direction += 360;
+        gun_direction += (360 - gun_rotate_speed);
+    }
+    else
+    {
+        gun_direction -= gun_rotate_speed;
     }
 }
 
