@@ -9,6 +9,7 @@
 #include "objects/board/ammunition/TAmmunition.h"
 #include "objects/board/ammunition/TBullet.h"
 #include "objects/control/TControl.h"
+#include "objects/control/TLeft_button.h"
 #include "objects/storage/TStorage.h"
 
 #endif // ALL_OBJECTS_H

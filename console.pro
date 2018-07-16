@@ -30,6 +30,7 @@ SOURCES += \
 	objects/board/ammunition/TBullet.cpp \
 	objects/score/TScore.cpp \
 	objects/control/TControl.cpp \
+	objects/control/TLeft_button.cpp \
 	objects/storage/TStorage.cpp
 
 HEADERS += \
@@ -45,7 +46,8 @@ HEADERS += \
 	objects/board/ammunition/TBullet.h \
 	objects/score/TScore.h \
 	objects/control/TControl.h \
+	objects/control/TLeft_button.h \
 	objects/storage/TStorage.h \
-    operations/painter.h \
+        operations/painter.h \
 	operations/helpers.h \
 	operations/input_handler.h
