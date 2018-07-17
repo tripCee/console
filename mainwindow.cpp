@@ -110,8 +110,8 @@ void MainWindow::Init_test_game()
     turret->set_gun_rotate_speed(5);
     turret->set_ammunition_id(bullet->get_id());
 
-    control->add_child(left_button->get_id());
-    control->add_child(right_button->get_id());
+    control->add_child(left_button->get_id(), QPoint());
+    control->add_child(right_button->get_id(), QPoint());
 
     board->set_weapon_id(turret->get_id());
 

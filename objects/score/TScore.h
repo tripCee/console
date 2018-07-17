@@ -3,7 +3,7 @@
 
 #include "objects/TObject.h"
 
-#include <QList>
+#include <QMap>
 
 namespace Console {
 namespace Objects {
@@ -17,12 +17,11 @@ public:
     TScore(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgC);
     ~TScore();
 
-    void add_child(object_id_t cid);
-    const QList<object_id_t>& get_children();
+    void add_child(object_id_t cid, QPoint pos);
+    const QMap<object_id_t, QPoint>& get_children();
 
 private:
-    //grid
-    QList<object_id_t> children;
+    QMap<object_id_t, QPoint> children;
 };
 
 } // namespace Objects

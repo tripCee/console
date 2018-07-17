@@ -5,14 +5,14 @@ namespace Objects {
 
 TScore::TScore(): 
     TObject(),
-    children(QList<object_id_t>())
+    children(QMap<object_id_t, QPoint>())
 {
 }
 
 
 TScore::TScore(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc): 
     TObject(TObject::TYPE_SCORE, id, w, h, bw, bgc),
-    children(QList<object_id_t>())
+    children(QMap<object_id_t, QPoint>())
 {
 }
 
@@ -22,13 +22,13 @@ TScore::~TScore()
 }
 
 
-void TScore::add_child(object_id_t cid)
+void TScore::add_child(object_id_t cid, QPoint pos)
 {
-    children.append(cid);
+    children.insert(cid, pos);
 }
 
 
-const QList<object_id_t>& TScore::get_children()
+const QMap<object_id_t, QPoint>& TScore::get_children()
 {
     return children;
 }

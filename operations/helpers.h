@@ -60,13 +60,15 @@ void operate(Console::Objects::TObject& obj, OP& op, Args&& ...args)
 }
 
 template<class OP, typename ...Args>
-void operate_children(const QList<uint16_t>& children, OP& op, TPool& pool, Args&& ...args)
+void operate_children(const QMap<object_id_t, QPoint>& children, OP& op, TPool& pool, Args&& ...args)
 {
     printf("***operate CHILDREN\n");
 
-    for (auto id : children)
+    QMapIterator<object_id_t, QPoint> i(children);
+    while (i.hasNext())
     {
-        auto child = pool.get_object(id);
+        i.next();
+        auto child = pool.get_object(i.key());
         if (child) operate(*child, op, pool, args...);
     }
 }

@@ -5,14 +5,14 @@ namespace Objects {
 
 TControl::TControl(): 
     TObject(),
-    children(QList<object_id_t>())
+    children(QMap<object_id_t, QPoint>())
 {
 }
 
 
 TControl::TControl(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc): 
     TObject(TObject::TYPE_CONTROL, id, w, h, bw, bgc),
-    children(QList<object_id_t>())
+    children(QMap<object_id_t, QPoint>())
 {
 }
 
@@ -22,13 +22,13 @@ TControl::~TControl()
 }
 
 
-void TControl::add_child(object_id_t cid)
+void TControl::add_child(object_id_t cid, QPoint pos)
 {
-    children.append(cid);
+    children.insert(cid, pos);
 }
 
 
-const QList<object_id_t>& TControl::get_children()
+const QMap<object_id_t, QPoint>& TControl::get_children()
 {
     return children;
 }
