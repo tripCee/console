@@ -36,9 +36,17 @@ void operate(Console::Objects::TObject& obj, OP& op, Args&& ...args)
         printf("***Found CONTROL\n");
         operate_obj<Console::Objects::TControl&>(static_cast<Console::Objects::TControl&>(obj), op, args...);
         break;
+    case Console::Objects::TObject::TYPE_BUTTON:
+        printf("***Found BUTTON\n");
+        operate_obj<Console::Objects::TButton&>(static_cast<Console::Objects::TButton&>(obj), op, args...);
+        break;
     case Console::Objects::TObject::TYPE_LEFT_BUTTON:
         printf("***Found LEFT BUTTON\n");
         operate_obj<Console::Objects::TLeft_button&>(static_cast<Console::Objects::TLeft_button&>(obj), op, args...);
+        break;
+    case Console::Objects::TObject::TYPE_RIGHT_BUTTON:
+        printf("***Found RIGHT BUTTON\n");
+        operate_obj<Console::Objects::TRight_button&>(static_cast<Console::Objects::TRight_button&>(obj), op, args...);
         break;
     case Console::Objects::TObject::TYPE_STORAGE:
         printf("***Found STORAGE\n");

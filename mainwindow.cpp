@@ -79,30 +79,45 @@ void MainWindow::Init_test_game()
     int control_height = CONSOLE_HEIGHT - board_width;
     int storage_width = score_width;
 
-    Console::Objects::TGame* game = new Console::Objects::TGame(id, CONSOLE_WIDTH, CONSOLE_HEIGHT, border_width, Qt::black, 1);
+    Console::Objects::TGame* game = 
+        new Console::Objects::TGame(id, CONSOLE_WIDTH, CONSOLE_HEIGHT, border_width, Qt::black, 1);
     id += 1;
-    Console::Objects::TScore* score = new Console::Objects::TScore(id, score_width, CONSOLE_HEIGHT, border_width, Qt::red);
+    Console::Objects::TScore* score = 
+        new Console::Objects::TScore(id, score_width, CONSOLE_HEIGHT, border_width, Qt::red);
     id += 1;
-    Console::Objects::TBoard* board = new Console::Objects::TBoard(id, board_width, board_width, border_width, Qt::white, block_size);
+    Console::Objects::TBoard* board = 
+        new Console::Objects::TBoard(id, board_width, board_width, border_width, Qt::white, block_size);
     id += 1;
-    Console::Objects::TTurret* turret = new Console::Objects::TTurret(id, turret_size, turret_size, Qt::darkCyan, Qt::cyan);
+    Console::Objects::TTurret* turret = 
+        new Console::Objects::TTurret(id, turret_size, turret_size, Qt::darkCyan, Qt::cyan);
     id += 1;
-    Console::Objects::TBullet* bullet = new Console::Objects::TBullet(id, bullet_size, bullet_size, Qt::darkGreen);
+    Console::Objects::TBullet* bullet = 
+        new Console::Objects::TBullet(id, bullet_size, bullet_size, Qt::darkGreen);
     id += 1;
-    Console::Objects::TControl* control = new Console::Objects::TControl(id, board_width, control_height, border_width, Qt::green);
+    Console::Objects::TControl* control = 
+        new Console::Objects::TControl(id, board_width, control_height, border_width, Qt::white);
     id += 1;
-    Console::Objects::TStorage* storage = new Console::Objects::TStorage(id, storage_width, CONSOLE_HEIGHT, border_width, Qt::blue);
+    Console::Objects::TLeft_button* left_button = 
+        new Console::Objects::TLeft_button(id, storage_width, CONSOLE_HEIGHT, border_width, Qt::black, Qt::white, turret->get_id());
+    id += 1;
+    Console::Objects::TRight_button* right_button = 
+        new Console::Objects::TRight_button(id, storage_width, CONSOLE_HEIGHT, border_width, Qt::black, Qt::white, turret->get_id());
+    id += 1;
+    Console::Objects::TStorage* storage = 
+        new Console::Objects::TStorage(id, storage_width, CONSOLE_HEIGHT, border_width, Qt::blue);
 
     //turret->set_gun_direction(45);
     turret->set_gun_rotate_speed(5);
     turret->set_ammunition_id(bullet->get_id());
+
+    control->add_child(left_button->get_id());
+    control->add_child(right_button->get_id());
 
     board->set_weapon_id(turret->get_id());
 
     game->set_score_id(score->get_id());
     game->set_control_id(control->get_id());
     game->set_storage_id(storage->get_id());
-    game->set_weapon_id(turret->get_id());
     game->add_level(board->get_id());
 
     pool.add_game(game->get_id(), game);
@@ -111,6 +126,8 @@ void MainWindow::Init_test_game()
     pool.add_object(turret->get_id(), turret);
     pool.add_object(bullet->get_id(), bullet);
     pool.add_object(control->get_id(), control);
+    pool.add_object(left_button->get_id(), left_button);
+    pool.add_object(right_button->get_id(), right_button);
     pool.add_object(storage->get_id(), storage);
 
     this->update();

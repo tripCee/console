@@ -4,26 +4,19 @@ namespace Console {
 namespace Objects {
 
 TLeft_button::TLeft_button(): 
-    TObject()
+    TButton()
 {
 }
 
 
-TLeft_button::TLeft_button(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc, QColor fgc): 
-    TObject(TObject::TYPE_LEFT_BUTTON, id, w, h, bw, bgc),
-    foreground_colour(fgc)
+TLeft_button::TLeft_button(object_id_t id, uint16_t w, uint16_t h, uint16_t bw, QColor bgc, QColor fgc, object_id_t cid): 
+    TButton(id, w, h, bw, bgc, fgc, Qt::Key_Left, cid, TObject::TYPE_LEFT_BUTTON)
 {
 }
 
 
 TLeft_button::~TLeft_button()
 {
-}
-
-
-QColor TLeft_button::get_foreground_colour()
-{
-    return foreground_colour;
 }
 
 

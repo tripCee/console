@@ -24,8 +24,6 @@ public:
     object_id_t get_control_id();
     void set_storage_id(object_id_t id);
     object_id_t get_storage_id();
-    void set_weapon_id(object_id_t id);
-    object_id_t get_weapon_id();
     void add_level(object_id_t cid);
     const QVector<object_id_t>& get_levels();
     object_id_t get_current_board_id();
@@ -36,7 +34,6 @@ private:
     object_id_t score_id;
     object_id_t control_id;
     object_id_t storage_id;
-    object_id_t weapon_id;
     QVector<object_id_t> levels;
     uint16_t current_level;
 };
