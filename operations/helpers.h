@@ -60,7 +60,7 @@ void operate(Console::Objects::TObject& obj, OP& op, Args&& ...args)
 }
 
 template<class OP, typename ...Args>
-void operate_children(const QMap<object_id_t, QPoint>& children, OP& op, TPool& pool, Args&& ...args)
+void operate_children(const QMap<object_id_t, QPoint>& children, OP& op, TPool& pool, QPoint offset, Args&& ...args)
 {
     printf("***operate CHILDREN\n");
 
@@ -69,7 +69,7 @@ void operate_children(const QMap<object_id_t, QPoint>& children, OP& op, TPool& 
     {
         i.next();
         auto child = pool.get_object(i.key());
-        if (child) operate(*child, op, pool, args...);
+        if (child) operate(*child, op, pool, offset, args...);
     }
 }
 

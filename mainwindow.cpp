@@ -46,7 +46,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     if (!game) return;
 
     Console::Operations::input_handler op(event->type(), event->key(), QPoint());
-    Console::Operations::operate(*game, op, pool);
+    Console::Operations::operate(*game, op, pool, QPoint(0, 0));
 }
 
 
@@ -59,7 +59,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     if (!game) return;
 
     Console::Operations::input_handler op(event->type(), event->key(), QPoint());
-    Console::Operations::operate(*game, op, pool);
+    Console::Operations::operate(*game, op, pool, QPoint(0, 0));
 
     this->update();
 }
