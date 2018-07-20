@@ -29,20 +29,14 @@ class input_handler
 {
 
 public:
-    input_handler(QEvent::Type type, int key, QPointF pos):
-        type(type), 
-        key(key), 
-        pos(pos)
+    input_handler()
     {}
 
-    QEvent::Type type;
-    int key;
-    QPointF pos;
 };
 
 
 template<class OBJ, class IH, typename ...Args> 
-void operate_obj(OBJ& obj, IH& ih, TPool& pool, QPoint offset)
+void operate_obj(OBJ& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
     Q_UNUSED(obj);
     Q_UNUSED(ih);
@@ -52,19 +46,19 @@ void operate_obj(OBJ& obj, IH& ih, TPool& pool, QPoint offset)
 
 
 template<class OBJ, class IH, typename ...Args> 
-void operate_obj(Console::Objects::TGame& obj, IH& ih, TPool& pool, QPoint offset)
+void operate_obj(Console::Objects::TGame& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
     printf("***input_handler GAME %d\n", obj.get_id());
 
     auto control_id = obj.get_control_id();
     auto control = pool.get_object(control_id);
 
-    operate(*control, ih, pool, offset);
+    operate(*control, ih, pool, offset, type, key, pos);
 }
 
 
 template<class OBJ, class IH, typename ...Args> 
-void operate_obj(Console::Objects::TScore& obj, IH& ih, TPool& pool, QPoint offset)
+void operate_obj(Console::Objects::TScore& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
     Q_UNUSED(obj);
     Q_UNUSED(ih);
@@ -75,7 +69,7 @@ void operate_obj(Console::Objects::TScore& obj, IH& ih, TPool& pool, QPoint offs
 
 
 template<class OBJ, class IH, typename ...Args> 
-void operate_obj(Console::Objects::TBoard& obj, IH& ih, TPool& pool, QPoint offset)
+void operate_obj(Console::Objects::TBoard& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
     Q_UNUSED(obj);
     Q_UNUSED(ih);
@@ -86,13 +80,13 @@ void operate_obj(Console::Objects::TBoard& obj, IH& ih, TPool& pool, QPoint offs
 
 
 template<class OBJ, class IH, typename ...Args> 
-void operate_obj(Console::Objects::TTurret& obj, IH& ih, TPool& pool, QPoint offset)
+void operate_obj(Console::Objects::TTurret& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
     Q_UNUSED(pool);
-    printf("***input_handler TURRET %d [%d]\n", obj.get_id(), ih.key);
+    printf("***input_handler TURRET %d [%d]\n", obj.get_id(), key);
 
     // FIXME: Temp direct control of weapon
-    switch (ih.key)
+    switch (key)
     {
         case Qt::Key_Left:
             obj.rotate_gun_acw();
@@ -107,37 +101,37 @@ void operate_obj(Console::Objects::TTurret& obj, IH& ih, TPool& pool, QPoint off
 
 
 template<class OBJ, class IH, typename ...Args> 
-void operate_obj(Console::Objects::TControl& obj, IH& ih, TPool& pool, QPoint offset)
+void operate_obj(Console::Objects::TControl& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
     Q_UNUSED(obj);
     Q_UNUSED(ih);
     Q_UNUSED(pool);
     printf("***input_handler CONTROL %d\n", obj.get_id());
 
-    operate_children(obj.get_children(), ih, pool, offset);
+    operate_children(obj.get_children(), ih, pool, offset, type, key, pos);
 }
 
 
 template<class OBJ, class IH, typename ...Args> 
-void operate_obj(Console::Objects::TButton& obj, IH& ih, TPool& pool, QPoint offset)
+void operate_obj(Console::Objects::TButton& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
     printf("***input_handler BUTTON %d\n", obj.get_id());
 
-    if (ih.key == obj.get_key())
+    if (key == obj.get_key())
     {
         printf("\tFOUND!\n");
         auto controlled_obj = pool.get_object(obj.get_controlled_id());
 
         if (controlled_obj)
         {
-            operate(*controlled_obj, ih, pool, offset);
+            operate(*controlled_obj, ih, pool, offset, type, key, pos);
         }
     }
 }
 
 
 template<class OBJ, class IH, typename ...Args> 
-void operate_obj(Console::Objects::TStorage& obj, IH& ih, TPool& pool, QPoint offset)
+void operate_obj(Console::Objects::TStorage& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
     Q_UNUSED(obj);
     Q_UNUSED(ih);
