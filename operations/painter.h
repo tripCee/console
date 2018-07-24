@@ -178,18 +178,22 @@ void operate_obj(Console::Objects::TControl& obj, PAINT& p, TPool& pool, QPoint 
 
 
 template<class OBJ, class PAINT, typename ...Args> 
-void operate_obj(Console::Objects::TButton& obj, PAINT& p, TPool& pool, QPoint offset)
-{
-    Q_UNUSED(pool);
-    printf("***paint BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
-}
-
-
-template<class OBJ, class PAINT, typename ...Args> 
 void operate_obj(Console::Objects::TLeft_button& obj, PAINT& p, TPool& pool, QPoint offset)
 {
     Q_UNUSED(pool);
     printf("***paint LEFT BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+
+    uint16_t bw = obj.get_border_width();
+    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
+
+    p.save();
+    QPen rect_pen(Qt::gray);
+    rect_pen.setWidth(bw);
+    p.setPen(rect_pen);
+    QBrush rect_brush(obj.get_bg_colour());
+    p.setBrush(rect_brush);
+    p.drawRect(inner_rect);
+    p.restore();
 }
 
 
@@ -198,6 +202,18 @@ void operate_obj(Console::Objects::TRight_button& obj, PAINT& p, TPool& pool, QP
 {
     Q_UNUSED(pool);
     printf("***paint RIGHT BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+
+    uint16_t bw = obj.get_border_width();
+    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
+
+    p.save();
+    QPen rect_pen(Qt::gray);
+    rect_pen.setWidth(bw);
+    p.setPen(rect_pen);
+    QBrush rect_brush(obj.get_bg_colour());
+    p.setBrush(rect_brush);
+    p.drawRect(inner_rect);
+    p.restore();
 }
 
 

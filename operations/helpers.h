@@ -69,7 +69,7 @@ void operate_children(const QMap<object_id_t, QPoint>& children, OP& op, TPool& 
     {
         i.next();
         auto child = pool.get_object(i.key());
-        if (child) operate(*child, op, pool, offset, args...);
+        if (child) operate(*child, op, pool, offset + i.value(), args...);
     }
 }
 

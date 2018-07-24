@@ -18,7 +18,7 @@ TButton::TButton(object_id_t id,
         Qt::Key k,
         object_id_t cid,
         type_t object_type): 
-    TObject(TObject::TYPE_BUTTON, id, w, h, bw, bgc),
+    TObject(object_type, id, w, h, bw, bgc),
     foreground_colour(fgc),
     key(k),
     controlled_id(cid)
