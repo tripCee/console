@@ -41,6 +41,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     printf("KEY PRESS\n");
 
+    // FIXME: Create process method for key/mouse events
     Console::Objects::TGame* game = pool.get_game();
 
     if (!game) return;
@@ -60,6 +61,34 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 
     Console::Operations::input_handler op;
     Console::Operations::operate(*game, op, pool, QPoint(0, 0), event->type(), event->key(), QPoint());
+
+    this->update();
+}
+
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    printf("MOUSE PRESS\n");
+    
+    Console::Objects::TGame* game = pool.get_game();
+
+    if (!game) return;
+
+    Console::Operations::input_handler op;
+    Console::Operations::operate(*game, op, pool, QPoint(0, 0), event->type(), -1, event->pos());
+}
+
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    printf("MOUSE RELEASE\n");
+    
+    Console::Objects::TGame* game = pool.get_game();
+
+    if (!game) return;
+
+    Console::Operations::input_handler op;
+    Console::Operations::operate(*game, op, pool, QPoint(0, 0), event->type(), -1, event->pos());
 
     this->update();
 }

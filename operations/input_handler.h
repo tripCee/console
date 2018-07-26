@@ -54,8 +54,13 @@ void operate_obj(Console::Objects::TGame& obj, IH& ih, TPool& pool, QPoint offse
 {
     printf("***input_handler GAME %d\n", obj.get_id());
 
-    auto control_id = obj.get_control_id();
-    auto control = pool.get_object(control_id);
+    auto score = pool.get_object(obj.get_score_id());
+    auto board = pool.get_object(obj.get_current_board_id());
+    auto control = pool.get_object(obj.get_control_id());
+
+    // Calculate offset for the controller
+    if (score) offset += QPoint(score ? score->get_width() : 0, 0);
+    if (board) offset += QPoint(0, board ? board->get_height() : 0);
 
     operate(*control, ih, pool, offset, type, key, pos);
 }
@@ -113,7 +118,7 @@ void operate_obj(Console::Objects::TTurret& obj, IH& ih, TPool& pool, QPoint off
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TControl& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    printf("***input_handler CONTROL %d\n", obj.get_id());
+    printf("***input_handler CONTROL %d KEY %d POS (%f,%f)\n", obj.get_id(), key, pos.x(), pos.y());
 
     operate_children(obj.get_children(), ih, pool, offset, type, key, pos);
 }
@@ -136,16 +141,28 @@ void operate_obj(Console::Objects::TButton& obj, IH& ih, TPool& pool, QPoint off
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TLeft_button& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    printf("***input_handler LEFT BUTTON %d\n", obj.get_id());
+    bool found = false;
+    QRect bounding_rect(offset.x(), offset.y(), obj.get_width(), obj.get_height());
+
+    // Adjust position for offset
+    //pos -= offset;
+
+    printf("***input_handler LEFT BUTTON %d BOUNDING RECT %dx%d (%d, %d) POS (%f, %f)\n", 
+		    obj.get_id(), bounding_rect.width(), bounding_rect.height(), bounding_rect.x(), bounding_rect.y(), pos.x(), pos.y());
     
-    if (key == obj.get_key())
+    if (key == obj.get_key() || bounding_rect.contains(pos.toPoint()))
+    {
+	found = true;
+    }
+
+    if (found)
     {
         printf("\tFOUND!\n");
         auto controlled_obj = pool.get_object(obj.get_controlled_id());
 
         if (controlled_obj)
         {
-            operate(*controlled_obj, ih, pool, offset, type, key, pos);
+            operate(*controlled_obj, ih, pool, offset, type, obj.get_key(), pos);
         }
     }
 }
@@ -154,16 +171,27 @@ void operate_obj(Console::Objects::TLeft_button& obj, IH& ih, TPool& pool, QPoin
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TRight_button& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    printf("***input_handler RIGHT BUTTON %d\n", obj.get_id());
+    bool found = false;
+    QRect bounding_rect(offset.x(), offset.y(), obj.get_width(), obj.get_height());
+
+    // Adjust position for offset
+    //pos -= offset;
+
+    printf("***input_handler RIGHT BUTTON %d  BOUNDING RECT %dx%d (%d, %d)\n", obj.get_id(), bounding_rect.width(), bounding_rect.height(), bounding_rect.x(), bounding_rect.y());
     
-    if (key == obj.get_key())
+    if (key == obj.get_key() || bounding_rect.contains(pos.toPoint()))
+    {
+	found = true;
+    }
+
+    if (found)
     {
         printf("\tFOUND!\n");
         auto controlled_obj = pool.get_object(obj.get_controlled_id());
 
         if (controlled_obj)
         {
-            operate(*controlled_obj, ih, pool, offset, type, key, pos);
+            operate(*controlled_obj, ih, pool, offset, type, obj.get_key(), pos);
         }
     }
 }
