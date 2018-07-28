@@ -29,11 +29,14 @@ public:
     Qt::Key get_key();
     void set_controlled_id(object_id_t cid);
     object_id_t get_controlled_id();
+    void set_is_pressed(bool pressed);
+    bool get_is_pressed();
 
 private:
     QColor foreground_colour;
     Qt::Key key;
     object_id_t controlled_id;
+    bool is_pressed;
 };
 
 } // namespace Objects

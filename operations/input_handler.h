@@ -141,28 +141,29 @@ void operate_obj(Console::Objects::TButton& obj, IH& ih, TPool& pool, QPoint off
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TLeft_button& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    bool found = false;
     QRect bounding_rect(offset.x(), offset.y(), obj.get_width(), obj.get_height());
-
-    // Adjust position for offset
-    //pos -= offset;
 
     printf("***input_handler LEFT BUTTON %d BOUNDING RECT %dx%d (%d, %d) POS (%f, %f)\n", 
 		    obj.get_id(), bounding_rect.width(), bounding_rect.height(), bounding_rect.x(), bounding_rect.y(), pos.x(), pos.y());
     
     if (key == obj.get_key() || bounding_rect.contains(pos.toPoint()))
     {
-	found = true;
-    }
-
-    if (found)
-    {
         printf("\tFOUND!\n");
-        auto controlled_obj = pool.get_object(obj.get_controlled_id());
-
-        if (controlled_obj)
+        // Ignore releases
+        if (type == QEvent::MouseButtonPress || type == QEvent::KeyPress)
         {
-            operate(*controlled_obj, ih, pool, offset, type, obj.get_key(), pos);
+            obj.set_is_pressed(true);
+
+            auto controlled_obj = pool.get_object(obj.get_controlled_id());
+
+            if (controlled_obj)
+            {
+                operate(*controlled_obj, ih, pool, offset, type, obj.get_key(), pos);
+            }
+        }
+        else
+        {
+            obj.set_is_pressed(false);
         }
     }
 }
@@ -171,27 +172,27 @@ void operate_obj(Console::Objects::TLeft_button& obj, IH& ih, TPool& pool, QPoin
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TRight_button& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    bool found = false;
     QRect bounding_rect(offset.x(), offset.y(), obj.get_width(), obj.get_height());
-
-    // Adjust position for offset
-    //pos -= offset;
 
     printf("***input_handler RIGHT BUTTON %d  BOUNDING RECT %dx%d (%d, %d)\n", obj.get_id(), bounding_rect.width(), bounding_rect.height(), bounding_rect.x(), bounding_rect.y());
     
     if (key == obj.get_key() || bounding_rect.contains(pos.toPoint()))
     {
-	found = true;
-    }
-
-    if (found)
-    {
         printf("\tFOUND!\n");
-        auto controlled_obj = pool.get_object(obj.get_controlled_id());
-
-        if (controlled_obj)
+        // Ignore releases
+        if (type == QEvent::MouseButtonPress || type == QEvent::KeyPress)
         {
-            operate(*controlled_obj, ih, pool, offset, type, obj.get_key(), pos);
+            obj.set_is_pressed(true);
+            auto controlled_obj = pool.get_object(obj.get_controlled_id());
+
+            if (controlled_obj)
+            {
+                operate(*controlled_obj, ih, pool, offset, type, obj.get_key(), pos);
+            }
+        }
+        else
+        {
+            obj.set_is_pressed(false);
         }
     }
 }

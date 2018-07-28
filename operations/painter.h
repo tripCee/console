@@ -185,12 +185,14 @@ void operate_obj(Console::Objects::TLeft_button& obj, PAINT& p, TPool& pool, QPo
 
     uint16_t bw = obj.get_border_width();
     QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
+    QColor fgc = obj.get_is_pressed() ? obj.get_bg_colour() : obj.get_foreground_colour();
+    QColor bgc = obj.get_is_pressed() ? obj.get_foreground_colour() : obj.get_bg_colour();
 
     p.save();
     QPen rect_pen(Qt::gray);
     rect_pen.setWidth(bw);
     p.setPen(rect_pen);
-    QBrush rect_brush(obj.get_bg_colour());
+    QBrush rect_brush(bgc);
     p.setBrush(rect_brush);
     p.drawRect(inner_rect);
     p.restore();
@@ -205,12 +207,14 @@ void operate_obj(Console::Objects::TRight_button& obj, PAINT& p, TPool& pool, QP
 
     uint16_t bw = obj.get_border_width();
     QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
+    QColor fgc = obj.get_is_pressed() ? obj.get_bg_colour() : obj.get_foreground_colour();
+    QColor bgc = obj.get_is_pressed() ? obj.get_foreground_colour() : obj.get_bg_colour();
 
     p.save();
     QPen rect_pen(Qt::gray);
     rect_pen.setWidth(bw);
     p.setPen(rect_pen);
-    QBrush rect_brush(obj.get_bg_colour());
+    QBrush rect_brush(bgc);
     p.setBrush(rect_brush);
     p.drawRect(inner_rect);
     p.restore();

@@ -21,7 +21,8 @@ TButton::TButton(object_id_t id,
     TObject(object_type, id, w, h, bw, bgc),
     foreground_colour(fgc),
     key(k),
-    controlled_id(cid)
+    controlled_id(cid),
+    is_pressed(false)
 {
 }
 
@@ -54,6 +55,17 @@ object_id_t TButton::get_controlled_id()
     return controlled_id;
 }
 
+
+void TButton::set_is_pressed(bool pressed)
+{
+    is_pressed = pressed;
+}
+
+
+bool TButton::get_is_pressed()
+{
+    return is_pressed;
+}
 
 } // namespace Objects
 } // namespace Console

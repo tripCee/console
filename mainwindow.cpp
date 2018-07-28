@@ -8,10 +8,17 @@
 
 MainWindow::MainWindow(QWidget *parent): 
     QMainWindow(parent),
-    pool()
+    pool(),
+    game(nullptr),
+    held_timer(new QTimer(this)),
+    last_pos()
 {
     this->setGeometry(0, 0, CONSOLE_WIDTH, CONSOLE_HEIGHT);
     this->move(100, 100);
+
+    held_timer->setInterval(50);
+    held_timer->setSingleShot(false);
+    connect(held_timer, SIGNAL(timeout()), this, SLOT(on_held_timer_timeout()));
 
     Init_test_game();
 }
@@ -20,15 +27,26 @@ MainWindow::MainWindow(QWidget *parent):
 MainWindow::~MainWindow()
 {
     //if (pool) delete pool;
+    held_timer->deleteLater();
 }
+
+
+void MainWindow::on_held_timer_timeout()
+{
+    if (!game) return;
+
+    Console::Operations::input_handler op;
+    Console::Operations::operate(*game, op, pool, QPoint(0, 0), QEvent::MouseButtonPress, -1, last_pos);
+
+    this->update();
+}
+
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
 
     printf("PAINT\n");
-    
-    Console::Objects::TGame* game = pool.get_game();
 
     if (!game) return;
 
@@ -41,13 +59,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     printf("KEY PRESS\n");
 
-    // FIXME: Create process method for key/mouse events
-    Console::Objects::TGame* game = pool.get_game();
-
-    if (!game) return;
-
-    Console::Operations::input_handler op;
-    Console::Operations::operate(*game, op, pool, QPoint(0, 0), event->type(), event->key(), QPoint());
+    process_control_event(event->type(), event->key(), QPoint());
 }
 
 
@@ -55,42 +67,28 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 {
     printf("KEY RELEASE\n");
 
-    Console::Objects::TGame* game = pool.get_game();
-
-    if (!game) return;
-
-    Console::Operations::input_handler op;
-    Console::Operations::operate(*game, op, pool, QPoint(0, 0), event->type(), event->key(), QPoint());
-
-    this->update();
+    process_control_event(event->type(), event->key(), QPoint());
 }
 
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     printf("MOUSE PRESS\n");
+
+    held_timer->start();
+    last_pos = event->pos();
     
-    Console::Objects::TGame* game = pool.get_game();
-
-    if (!game) return;
-
-    Console::Operations::input_handler op;
-    Console::Operations::operate(*game, op, pool, QPoint(0, 0), event->type(), -1, event->pos());
+    process_control_event(event->type(), -1, event->pos());
 }
 
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 {
     printf("MOUSE RELEASE\n");
+
+    held_timer->stop();
     
-    Console::Objects::TGame* game = pool.get_game();
-
-    if (!game) return;
-
-    Console::Operations::input_handler op;
-    Console::Operations::operate(*game, op, pool, QPoint(0, 0), event->type(), -1, event->pos());
-
-    this->update();
+    process_control_event(event->type(), -1, event->pos());
 }
 
 
@@ -110,7 +108,7 @@ void MainWindow::Init_test_game()
     uint16_t button_width = qRound(float(board_width) / 2.0);
     uint16_t button_height = qRound(float(control_height) / 2.0);
 
-    Console::Objects::TGame* game = 
+    game = 
         new Console::Objects::TGame(id, CONSOLE_WIDTH, CONSOLE_HEIGHT, border_width, Qt::black, 1);
     id += 1;
     Console::Objects::TScore* score = 
@@ -160,6 +158,17 @@ void MainWindow::Init_test_game()
     pool.add_object(left_button->get_id(), left_button);
     pool.add_object(right_button->get_id(), right_button);
     pool.add_object(storage->get_id(), storage);
+
+    this->update();
+}
+
+
+void MainWindow::process_control_event(QEvent::Type type, int key, QPointF pos)
+{
+    if (!game) return;
+
+    Console::Operations::input_handler op;
+    Console::Operations::operate(*game, op, pool, QPoint(0, 0), type, key, pos);
 
     this->update();
 }

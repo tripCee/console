@@ -1,10 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "TPool.h"
+#include "objects/All_objects.h"
+
 #include <QMainWindow>
 #include <QPaintEvent>
-
-#include "TPool.h"
+#include <QTimer>
 
 const uint16_t CONSOLE_WIDTH = 1024;
 const uint16_t CONSOLE_HEIGHT = 800;
@@ -17,6 +19,9 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void on_held_timer_timeout();
+
 protected:
     virtual void paintEvent(QPaintEvent *event);
     virtual void keyPressEvent(QKeyEvent *event);
@@ -26,8 +31,12 @@ protected:
 
 private:
     TPool pool;
+    Console::Objects::TGame *game;
+    QTimer *held_timer;
+    QPoint last_pos;
 
     void Init_test_game();
+    void process_control_event(QEvent::Type type, int key, QPointF pos);
 };
 
 #endif // MAINWINDOW_H
