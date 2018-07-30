@@ -32,7 +32,8 @@ public:
         TYPE_LEFT_BUTTON = 300,
         TYPE_RIGHT_BUTTON = 301,
         TYPE_UP_BUTTON = 302,
-        TYPE_DOWN_BUTTON = 303
+        TYPE_DOWN_BUTTON = 303,
+        TYPE_FIRE_BUTTON = 304
     };
 
     TObject();

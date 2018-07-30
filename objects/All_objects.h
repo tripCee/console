@@ -12,6 +12,7 @@
 #include "objects/control/TButton.h"
 #include "objects/control/TLeft_button.h"
 #include "objects/control/TRight_button.h"
+#include "objects/control/TFire_button.h"
 #include "objects/storage/TStorage.h"
 
 #endif // ALL_OBJECTS_H

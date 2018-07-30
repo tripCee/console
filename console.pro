@@ -33,6 +33,7 @@ SOURCES += \
 	objects/control/TButton.cpp \
 	objects/control/TLeft_button.cpp \
 	objects/control/TRight_button.cpp \
+	objects/control/TFire_button.cpp \
 	objects/storage/TStorage.cpp
 
 HEADERS += \
@@ -51,6 +52,7 @@ HEADERS += \
 	objects/control/TButton.h \
 	objects/control/TLeft_button.h \
 	objects/control/TRight_button.h \
+	objects/control/TFire_button.h \
 	objects/storage/TStorage.h \
         operations/painter.h \
 	operations/helpers.h \

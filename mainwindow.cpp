@@ -105,7 +105,7 @@ void MainWindow::Init_test_game()
     int score_width = qRound((float(CONSOLE_WIDTH - board_width) / 2.0));
     int control_height = CONSOLE_HEIGHT - board_width;
     int storage_width = score_width;
-    uint16_t button_width = qRound(float(board_width) / 2.0);
+    uint16_t button_width = qRound(float(board_width) / 3.0);
     uint16_t button_height = qRound(float(control_height) / 2.0);
 
     game = 
@@ -132,6 +132,9 @@ void MainWindow::Init_test_game()
     Console::Objects::TRight_button* right_button = 
         new Console::Objects::TRight_button(id, button_width, button_height, border_width, Qt::black, Qt::white, turret->get_id());
     id += 1;
+    Console::Objects::TFire_button* fire_button = 
+        new Console::Objects::TFire_button(id, button_width, button_height, border_width, Qt::black, Qt::white, turret->get_id());
+    id += 1;
     Console::Objects::TStorage* storage = 
         new Console::Objects::TStorage(id, storage_width, CONSOLE_HEIGHT, border_width, Qt::blue);
 
@@ -140,7 +143,8 @@ void MainWindow::Init_test_game()
     turret->set_ammunition_id(bullet->get_id());
 
     control->add_child(left_button->get_id(), QPoint(0, 0));
-    control->add_child(right_button->get_id(), QPoint(button_width, 0));
+    control->add_child(fire_button->get_id(), QPoint(button_width, 0));
+    control->add_child(right_button->get_id(), QPoint((button_width * 2), 0));
 
     board->set_weapon_id(turret->get_id());
 
@@ -156,6 +160,7 @@ void MainWindow::Init_test_game()
     pool.add_object(bullet->get_id(), bullet);
     pool.add_object(control->get_id(), control);
     pool.add_object(left_button->get_id(), left_button);
+    pool.add_object(fire_button->get_id(), fire_button);
     pool.add_object(right_button->get_id(), right_button);
     pool.add_object(storage->get_id(), storage);
 

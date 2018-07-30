@@ -48,6 +48,10 @@ void operate(Console::Objects::TObject& obj, OP& op, Args&& ...args)
         printf("***Found RIGHT BUTTON\n");
         operate_obj<Console::Objects::TRight_button&>(static_cast<Console::Objects::TRight_button&>(obj), op, args...);
         break;
+    case Console::Objects::TObject::TYPE_FIRE_BUTTON:
+        printf("***Found FIRE BUTTON\n");
+        operate_obj<Console::Objects::TFire_button&>(static_cast<Console::Objects::TFire_button&>(obj), op, args...);
+        break;
     case Console::Objects::TObject::TYPE_STORAGE:
         printf("***Found STORAGE\n");
         operate_obj<Console::Objects::TStorage&>(static_cast<Console::Objects::TStorage&>(obj), op, args...);
