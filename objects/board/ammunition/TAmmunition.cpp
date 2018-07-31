@@ -68,5 +68,16 @@ uint16_t TAmmunition::get_direction()
 }
 
 
+void TAmmunition::set_fired(bool f)
+{
+    fired = f;
+}
+
+
+bool TAmmunition::get_fired()
+{
+    return fired;
+}
+
 } // namespace Objects
 } // namespace Console

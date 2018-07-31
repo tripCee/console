@@ -136,8 +136,12 @@ void operate_obj(Console::Objects::TTurret& obj, IH& ih, TPool& pool, QPoint off
             obj.rotate_gun_acw();
             break;
         case Qt::Key_Space:
+        {
             printf("\tFIRE !!!\n");
+            auto ammo = static_cast<Console::Objects::TAmmunition*>(pool.get_object(obj.get_ammunition_id()));
+            if (ammo) ammo->set_fired(true);
             break;
+        }
         case Qt::Key_Right:
             obj.rotate_gun_cw();
             break;

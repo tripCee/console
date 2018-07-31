@@ -25,12 +25,15 @@ public:
     uint8_t get_power();
     void set_direction(uint16_t d);
     uint16_t get_direction();
+    void set_fired(bool f);
+    bool get_fired();
 
 private:
     uint8_t speed;
     uint8_t max_speed;
     uint8_t power;
     uint16_t direction;
+    bool fired;
 };
 
 } // namespace Objects

@@ -141,6 +141,10 @@ void operate_obj(Console::Objects::TTurret& obj, PAINT& p, TPool& pool, QPoint o
     Q_UNUSED(pool);
     printf("***paint TURRET %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
+    // Do ammo first so it doesn't overlay the weapon
+    auto ammo = pool.get_object(obj.get_ammunition_id());
+    if (ammo) operate(*ammo, p, pool, offset);
+
     QPoint turret_pos = offset + QPoint(obj.get_width(), obj.get_width());
     QRect rect(turret_pos.x(), turret_pos.y(), obj.get_width(), obj.get_width());
 
@@ -156,8 +160,6 @@ void operate_obj(Console::Objects::TTurret& obj, PAINT& p, TPool& pool, QPoint o
     p.scale(scale, scale);
     p.drawPixmap(-center, sprite);
     p.restore();
-
-    //operate_children(obj.get_children(), p, pool, offset);
 }
 
 
@@ -165,6 +167,9 @@ template<class OBJ, class PAINT, typename ...Args>
 void operate_obj(Console::Objects::TBullet& obj, PAINT& p, TPool& pool, QPoint offset)
 {
     Q_UNUSED(pool);
+
+    if (!obj.get_fired()) return;
+
     printf("***paint BULLET %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 }
 
