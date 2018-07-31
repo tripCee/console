@@ -22,6 +22,30 @@ public:
 };
 
 
+void paint_object_base(Console::Objects::TObject obj, painter& p, QPoint offset, QColor bgc)
+{
+    uint16_t bw = obj.get_border_width();
+    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
+
+    p.save();
+    QPen rect_pen(Qt::gray);
+    rect_pen.setWidth(bw);
+    p.setPen(rect_pen);
+    QBrush rect_brush(bgc);
+    p.setBrush(rect_brush);
+    p.drawRect(inner_rect);
+    p.restore();
+}
+
+
+void paint_button_base(Console::Objects::TButton obj, painter& p, QPoint offset)
+{
+    QColor bgc = obj.get_is_pressed() ? obj.get_foreground_colour() : obj.get_bg_colour();
+
+    paint_object_base(obj, p, offset, bgc);
+}
+
+	
 template<class OBJ, class PAINT, typename ...Args> 
 void operate_obj(OBJ& obj, PAINT& p, TPool& pool, QPoint offset)
 {
@@ -67,17 +91,7 @@ void operate_obj(Console::Objects::TScore& obj, PAINT& p, TPool& pool, QPoint of
     Q_UNUSED(pool);
     printf("***paint SCORE %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
-    uint16_t bw = obj.get_border_width();
-    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
-
-    p.save();
-    QPen rect_pen(Qt::gray);
-    rect_pen.setWidth(bw);
-    p.setPen(rect_pen);
-    QBrush rect_brush(obj.get_bg_colour());
-    p.setBrush(rect_brush);
-    p.drawRect(inner_rect);
-    p.restore();
+    paint_object_base(obj, p, offset, obj.get_bg_colour());
 
     //operate_children(obj.get_children(), p, pool, offset);
 }
@@ -88,19 +102,11 @@ void operate_obj(Console::Objects::TBoard& obj, PAINT& p, TPool& pool, QPoint of
 {
     printf("***paint BOARD %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
-    uint16_t bw = obj.get_border_width();
-    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
-
-    p.save();
-    QPen rect_pen(Qt::gray);
-    rect_pen.setWidth(bw);
-    p.setPen(rect_pen);
-    QBrush rect_brush(obj.get_bg_colour());
-    p.setBrush(rect_brush);
-    p.drawRect(inner_rect);
-    p.restore();
+    paint_object_base(obj, p, offset, obj.get_bg_colour());
 
     // Grid
+    uint16_t bw = obj.get_border_width();
+    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
     p.save();
     QPen grid_pen(QColor(0, 0, 0, 50));
     p.setPen(grid_pen);
@@ -156,22 +162,20 @@ void operate_obj(Console::Objects::TTurret& obj, PAINT& p, TPool& pool, QPoint o
 
 
 template<class OBJ, class PAINT, typename ...Args> 
+void operate_obj(Console::Objects::TBullet& obj, PAINT& p, TPool& pool, QPoint offset)
+{
+    Q_UNUSED(pool);
+    printf("***paint BULLET %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+}
+
+
+template<class OBJ, class PAINT, typename ...Args> 
 void operate_obj(Console::Objects::TControl& obj, PAINT& p, TPool& pool, QPoint offset)
 {
     Q_UNUSED(pool);
     printf("***paint CONTROL %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
-    uint16_t bw = obj.get_border_width();
-    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
-
-    p.save();
-    QPen rect_pen(Qt::gray);
-    rect_pen.setWidth(bw);
-    p.setPen(rect_pen);
-    QBrush rect_brush(obj.get_bg_colour());
-    p.setBrush(rect_brush);
-    p.drawRect(inner_rect);
-    p.restore();
+    paint_object_base(obj, p, offset, obj.get_bg_colour());
 
     operate_children(obj.get_children(), p, pool, offset);
 }
@@ -183,19 +187,8 @@ void operate_obj(Console::Objects::TLeft_button& obj, PAINT& p, TPool& pool, QPo
     Q_UNUSED(pool);
     printf("***paint LEFT BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
-    uint16_t bw = obj.get_border_width();
-    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
     QColor fgc = obj.get_is_pressed() ? obj.get_bg_colour() : obj.get_foreground_colour();
-    QColor bgc = obj.get_is_pressed() ? obj.get_foreground_colour() : obj.get_bg_colour();
-
-    p.save();
-    QPen rect_pen(Qt::gray);
-    rect_pen.setWidth(bw);
-    p.setPen(rect_pen);
-    QBrush rect_brush(bgc);
-    p.setBrush(rect_brush);
-    p.drawRect(inner_rect);
-    p.restore();
+    paint_button_base(obj, p, offset);
 }
 
 
@@ -205,19 +198,8 @@ void operate_obj(Console::Objects::TRight_button& obj, PAINT& p, TPool& pool, QP
     Q_UNUSED(pool);
     printf("***paint RIGHT BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
-    uint16_t bw = obj.get_border_width();
-    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
     QColor fgc = obj.get_is_pressed() ? obj.get_bg_colour() : obj.get_foreground_colour();
-    QColor bgc = obj.get_is_pressed() ? obj.get_foreground_colour() : obj.get_bg_colour();
-
-    p.save();
-    QPen rect_pen(Qt::gray);
-    rect_pen.setWidth(bw);
-    p.setPen(rect_pen);
-    QBrush rect_brush(bgc);
-    p.setBrush(rect_brush);
-    p.drawRect(inner_rect);
-    p.restore();
+    paint_button_base(obj, p, offset);
 }
 
 
@@ -227,19 +209,8 @@ void operate_obj(Console::Objects::TFire_button& obj, PAINT& p, TPool& pool, QPo
     Q_UNUSED(pool);
     printf("***paint FIRE BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
-    uint16_t bw = obj.get_border_width();
-    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
     QColor fgc = obj.get_is_pressed() ? obj.get_bg_colour() : obj.get_foreground_colour();
-    QColor bgc = obj.get_is_pressed() ? obj.get_foreground_colour() : obj.get_bg_colour();
-
-    p.save();
-    QPen rect_pen(Qt::gray);
-    rect_pen.setWidth(bw);
-    p.setPen(rect_pen);
-    QBrush rect_brush(bgc);
-    p.setBrush(rect_brush);
-    p.drawRect(inner_rect);
-    p.restore();
+    paint_button_base(obj, p, offset);
 }
 
 
@@ -249,17 +220,7 @@ void operate_obj(Console::Objects::TStorage& obj, PAINT& p, TPool& pool, QPoint 
     Q_UNUSED(pool);
     printf("***paint STORAGE %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
-    uint16_t bw = obj.get_border_width();
-    QRect inner_rect(offset.x(), offset.y(), obj.get_width() - bw, obj.get_height() - bw);
-
-    p.save();
-    QPen rect_pen(Qt::gray);
-    rect_pen.setWidth(bw);
-    p.setPen(rect_pen);
-    QBrush rect_brush(obj.get_bg_colour());
-    p.setBrush(rect_brush);
-    p.drawRect(inner_rect);
-    p.restore();
+    paint_object_base(obj, p, offset, obj.get_bg_colour());
 
     //operate_children(obj.get_children(), p, pool, offset);
 }

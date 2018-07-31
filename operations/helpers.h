@@ -24,6 +24,14 @@ void operate(Console::Objects::TObject& obj, OP& op, Args&& ...args)
         printf("***Found BOARD\n");
         operate_obj<Console::Objects::TBoard&>(static_cast<Console::Objects::TBoard&>(obj), op, args...);
         break;
+    case Console::Objects::TObject::TYPE_AMMUNITION:
+        printf("***Found AMMUNITION\n");
+        operate_obj<Console::Objects::TAmmunition&>(static_cast<Console::Objects::TAmmunition&>(obj), op, args...);
+        break;
+    case Console::Objects::TObject::TYPE_BULLET:
+        printf("***Found BULLET\n");
+        operate_obj<Console::Objects::TBullet&>(static_cast<Console::Objects::TBullet&>(obj), op, args...);
+        break;
     case Console::Objects::TObject::TYPE_WEAPON:
         printf("***Found WEAPON\n");
         operate_obj<Console::Objects::TWeapon&>(static_cast<Console::Objects::TWeapon&>(obj), op, args...);
