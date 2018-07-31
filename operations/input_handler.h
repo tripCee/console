@@ -35,6 +35,35 @@ public:
 };
 
 
+void handle_button(Console::Objects::TButton& obj, input_handler& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
+{
+    QRect bounding_rect(offset.x(), offset.y(), obj.get_width(), obj.get_height());
+
+    printf("\tBOUNDING RECT %dx%d (%d, %d) POS (%f, %f)\n", 
+		    bounding_rect.width(), bounding_rect.height(), bounding_rect.x(), bounding_rect.y(), pos.x(), pos.y());
+    
+    if (key == obj.get_key() || bounding_rect.contains(pos.toPoint()))
+    {
+        printf("\tFOUND!\n");
+        // Ignore releases
+        if (type == QEvent::MouseButtonPress || type == QEvent::KeyPress)
+        {
+            obj.set_is_pressed(true);
+
+            auto controlled_obj = pool.get_object(obj.get_controlled_id());
+
+            if (controlled_obj)
+            {
+                operate(*controlled_obj, ih, pool, offset, type, obj.get_key(), pos);
+            }
+        }
+        else
+        {
+            obj.set_is_pressed(false);
+        }
+    }
+}
+
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(OBJ& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
@@ -106,6 +135,9 @@ void operate_obj(Console::Objects::TTurret& obj, IH& ih, TPool& pool, QPoint off
         case Qt::Key_Left:
             obj.rotate_gun_acw();
             break;
+        case Qt::Key_Space:
+            printf("\tFIRE !!!\n");
+            break;
         case Qt::Key_Right:
             obj.rotate_gun_cw();
             break;
@@ -141,89 +173,27 @@ void operate_obj(Console::Objects::TButton& obj, IH& ih, TPool& pool, QPoint off
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TLeft_button& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    QRect bounding_rect(offset.x(), offset.y(), obj.get_width(), obj.get_height());
-
-    printf("***input_handler LEFT BUTTON %d BOUNDING RECT %dx%d (%d, %d) POS (%f, %f)\n", 
-		    obj.get_id(), bounding_rect.width(), bounding_rect.height(), bounding_rect.x(), bounding_rect.y(), pos.x(), pos.y());
+    printf("***input_handler LEFT BUTTON %d\n", obj.get_id());
     
-    if (key == obj.get_key() || bounding_rect.contains(pos.toPoint()))
-    {
-        printf("\tFOUND!\n");
-        // Ignore releases
-        if (type == QEvent::MouseButtonPress || type == QEvent::KeyPress)
-        {
-            obj.set_is_pressed(true);
-
-            auto controlled_obj = pool.get_object(obj.get_controlled_id());
-
-            if (controlled_obj)
-            {
-                operate(*controlled_obj, ih, pool, offset, type, obj.get_key(), pos);
-            }
-        }
-        else
-        {
-            obj.set_is_pressed(false);
-        }
-    }
+    handle_button(obj, ih, pool, offset, type, key, pos);
 }
 
 
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TRight_button& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    QRect bounding_rect(offset.x(), offset.y(), obj.get_width(), obj.get_height());
-
-    printf("***input_handler RIGHT BUTTON %d  BOUNDING RECT %dx%d (%d, %d)\n", obj.get_id(), bounding_rect.width(), bounding_rect.height(), bounding_rect.x(), bounding_rect.y());
+    printf("***input_handler RIGHT BUTTON %d\n", obj.get_id());
     
-    if (key == obj.get_key() || bounding_rect.contains(pos.toPoint()))
-    {
-        printf("\tFOUND!\n");
-        // Ignore releases
-        if (type == QEvent::MouseButtonPress || type == QEvent::KeyPress)
-        {
-            obj.set_is_pressed(true);
-            auto controlled_obj = pool.get_object(obj.get_controlled_id());
-
-            if (controlled_obj)
-            {
-                operate(*controlled_obj, ih, pool, offset, type, obj.get_key(), pos);
-            }
-        }
-        else
-        {
-            obj.set_is_pressed(false);
-        }
-    }
+    handle_button(obj, ih, pool, offset, type, key, pos);
 }
 
 
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TFire_button& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    QRect bounding_rect(offset.x(), offset.y(), obj.get_width(), obj.get_height());
-
-    printf("***input_handler FIRE BUTTON %d  BOUNDING RECT %dx%d (%d, %d)\n", obj.get_id(), bounding_rect.width(), bounding_rect.height(), bounding_rect.x(), bounding_rect.y());
+    printf("***input_handler FIRE BUTTON %d\n", obj.get_id());
     
-    if (key == obj.get_key() || bounding_rect.contains(pos.toPoint()))
-    {
-        printf("\tFOUND!\n");
-        // Ignore releases
-        if (type == QEvent::MouseButtonPress || type == QEvent::KeyPress)
-        {
-            obj.set_is_pressed(true);
-            auto controlled_obj = pool.get_object(obj.get_controlled_id());
-
-            if (controlled_obj)
-            {
-                operate(*controlled_obj, ih, pool, offset, type, obj.get_key(), pos);
-            }
-        }
-        else
-        {
-            obj.set_is_pressed(false);
-        }
-    }
+    handle_button(obj, ih, pool, offset, type, key, pos);
 }
 
 
