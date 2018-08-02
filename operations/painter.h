@@ -141,18 +141,21 @@ void operate_obj(Console::Objects::TTurret& obj, PAINT& p, TPool& pool, QPoint o
     Q_UNUSED(pool);
     printf("***paint TURRET %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
-    // Do ammo first so it doesn't overlay the weapon
-    auto ammo = pool.get_object(obj.get_ammunition_id());
-    if (ammo) operate(*ammo, p, pool, offset);
-
     QPoint turret_pos = offset + QPoint(obj.get_width(), obj.get_width());
     QRect rect(turret_pos.x(), turret_pos.y(), obj.get_width(), obj.get_width());
-
     QPixmap sprite = obj.get_sprite();
-
-    p.save();
     qreal scale = qMin(sprite.width(), sprite.height()) / qMax(sprite.width(), sprite.height());
     QPointF center(sprite.width() / 2.0, sprite.height() / 2.0); // widget center
+
+    // Do ammo first so it doesn't overlay the weapon
+    auto ammo = pool.get_object(obj.get_ammunition_id());
+    if (ammo) 
+    {
+    	offset += center.toPoint();
+	operate(*ammo, p, pool, offset);
+    }
+
+    p.save();
     // uncomment to trade performance for quality
     //  painter.setRenderHint(QPainter::SmoothPixmapTransform);
     p.translate(center + turret_pos);
@@ -171,6 +174,15 @@ void operate_obj(Console::Objects::TBullet& obj, PAINT& p, TPool& pool, QPoint o
     if (!obj.get_fired()) return;
 
     printf("***paint BULLET %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+    
+    QPixmap sprite = obj.get_sprite();
+    QPointF center(sprite.width() / 2.0, sprite.height() / 2.0); // widget center
+    
+    p.save();
+    // uncomment to trade performance for quality
+    //  painter.setRenderHint(QPainter::SmoothPixmapTransform);
+    p.drawPixmap(-center, sprite);
+    p.restore();
 }
 
 
