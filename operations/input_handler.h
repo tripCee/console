@@ -39,12 +39,11 @@ void handle_button(Console::Objects::TButton& obj, input_handler& ih, TPool& poo
 {
     QRect bounding_rect(offset.x(), offset.y(), obj.get_width(), obj.get_height());
 
-    printf("\tBOUNDING RECT %dx%d (%d, %d) POS (%f, %f)\n", 
-		    bounding_rect.width(), bounding_rect.height(), bounding_rect.x(), bounding_rect.y(), pos.x(), pos.y());
+    // printf("\tBOUNDING RECT %dx%d (%d, %d) POS (%f, %f)\n", 
+	// 	    bounding_rect.width(), bounding_rect.height(), bounding_rect.x(), bounding_rect.y(), pos.x(), pos.y());
     
     if (key == obj.get_key() || bounding_rect.contains(pos.toPoint()))
     {
-        printf("\tFOUND!\n");
         // Ignore releases
         if (type == QEvent::MouseButtonPress || type == QEvent::KeyPress)
         {
@@ -74,14 +73,14 @@ void operate_obj(OBJ& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type
     Q_UNUSED(type);
     Q_UNUSED(key);
     Q_UNUSED(pos);
-    printf("***input_handler default\n");
+    //printf("***input_handler default\n");
 }
 
 
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TGame& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    printf("***input_handler GAME %d\n", obj.get_id());
+    //printf("***input_handler GAME %d\n", obj.get_id());
 
     auto score = pool.get_object(obj.get_score_id());
     auto board = pool.get_object(obj.get_current_board_id());
@@ -104,7 +103,7 @@ void operate_obj(Console::Objects::TScore& obj, IH& ih, TPool& pool, QPoint offs
     Q_UNUSED(type);
     Q_UNUSED(key);
     Q_UNUSED(pos);
-    printf("***input_handler SCORE %d\n", obj.get_id());
+    //printf("***input_handler SCORE %d\n", obj.get_id());
 
 }
 
@@ -118,7 +117,7 @@ void operate_obj(Console::Objects::TBoard& obj, IH& ih, TPool& pool, QPoint offs
     Q_UNUSED(type);
     Q_UNUSED(key);
     Q_UNUSED(pos);
-    printf("***input_handler BOARD %d\n", obj.get_id());
+    //printf("***input_handler BOARD %d\n", obj.get_id());
 
 }
 
@@ -127,7 +126,7 @@ template<class OBJ, class IH, typename ...Args>
 void operate_obj(Console::Objects::TTurret& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
     Q_UNUSED(pool);
-    printf("***input_handler TURRET %d [%d]\n", obj.get_id(), key);
+    //printf("***input_handler TURRET %d [%d]\n", obj.get_id(), key);
 
     // FIXME: Temp direct control of weapon
     switch (key)
@@ -154,7 +153,7 @@ void operate_obj(Console::Objects::TTurret& obj, IH& ih, TPool& pool, QPoint off
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TControl& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    printf("***input_handler CONTROL %d KEY %d POS (%f,%f)\n", obj.get_id(), key, pos.x(), pos.y());
+    //printf("***input_handler CONTROL %d KEY %d POS (%f,%f)\n", obj.get_id(), key, pos.x(), pos.y());
 
     operate_children(obj.get_children(), ih, pool, offset, type, key, pos);
 }
@@ -169,7 +168,7 @@ void operate_obj(Console::Objects::TButton& obj, IH& ih, TPool& pool, QPoint off
     Q_UNUSED(type);
     Q_UNUSED(key);
     Q_UNUSED(pos);
-    printf("***input_handler BUTTON %d\n", obj.get_id());
+    //printf("***input_handler BUTTON %d\n", obj.get_id());
 
 }
 
@@ -177,7 +176,7 @@ void operate_obj(Console::Objects::TButton& obj, IH& ih, TPool& pool, QPoint off
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TLeft_button& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    printf("***input_handler LEFT BUTTON %d\n", obj.get_id());
+    //printf("***input_handler LEFT BUTTON %d\n", obj.get_id());
     
     handle_button(obj, ih, pool, offset, type, key, pos);
 }
@@ -186,7 +185,7 @@ void operate_obj(Console::Objects::TLeft_button& obj, IH& ih, TPool& pool, QPoin
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TRight_button& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    printf("***input_handler RIGHT BUTTON %d\n", obj.get_id());
+    //printf("***input_handler RIGHT BUTTON %d\n", obj.get_id());
     
     handle_button(obj, ih, pool, offset, type, key, pos);
 }
@@ -195,7 +194,7 @@ void operate_obj(Console::Objects::TRight_button& obj, IH& ih, TPool& pool, QPoi
 template<class OBJ, class IH, typename ...Args> 
 void operate_obj(Console::Objects::TFire_button& obj, IH& ih, TPool& pool, QPoint offset, QEvent::Type type, int key, QPointF pos)
 {
-    printf("***input_handler FIRE BUTTON %d\n", obj.get_id());
+    //printf("***input_handler FIRE BUTTON %d\n", obj.get_id());
     
     handle_button(obj, ih, pool, offset, type, key, pos);
 }
@@ -210,7 +209,7 @@ void operate_obj(Console::Objects::TStorage& obj, IH& ih, TPool& pool, QPoint of
     Q_UNUSED(type);
     Q_UNUSED(key);
     Q_UNUSED(pos);
-    printf("***input_handler STORAGE %d\n", obj.get_id());
+    //printf("***input_handler STORAGE %d\n", obj.get_id());
 }
 
 

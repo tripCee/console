@@ -60,7 +60,7 @@ void operate_obj(OBJ& obj, PAINT& p, TPool& pool, QPoint offset)
 template<class OBJ, class PAINT, typename ...Args> 
 void operate_obj(Console::Objects::TGame& obj, PAINT& p, TPool& pool, QPoint offset)
 {
-    printf("***paint GAME %d\n", obj.get_id());
+    //printf("***paint GAME %d\n", obj.get_id());
 
     p.fillRect(offset.x(), offset.y(), obj.get_width(), obj.get_height(), obj.get_bg_colour());
 
@@ -89,7 +89,7 @@ template<class OBJ, class PAINT, typename ...Args>
 void operate_obj(Console::Objects::TScore& obj, PAINT& p, TPool& pool, QPoint offset)
 {
     Q_UNUSED(pool);
-    printf("***paint SCORE %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+    //printf("***paint SCORE %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     paint_object_base(obj, p, offset, obj.get_bg_colour());
 
@@ -100,7 +100,7 @@ void operate_obj(Console::Objects::TScore& obj, PAINT& p, TPool& pool, QPoint of
 template<class OBJ, class PAINT, typename ...Args> 
 void operate_obj(Console::Objects::TBoard& obj, PAINT& p, TPool& pool, QPoint offset)
 {
-    printf("***paint BOARD %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+    //printf("***paint BOARD %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     paint_object_base(obj, p, offset, obj.get_bg_colour());
 
@@ -139,7 +139,7 @@ template<class OBJ, class PAINT, typename ...Args>
 void operate_obj(Console::Objects::TTurret& obj, PAINT& p, TPool& pool, QPoint offset)
 {
     Q_UNUSED(pool);
-    printf("***paint TURRET %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+    //printf("***paint TURRET %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     QPoint turret_pos = offset + QPoint(obj.get_width(), obj.get_width());
     QRect rect(turret_pos.x(), turret_pos.y(), obj.get_width(), obj.get_width());
@@ -152,7 +152,7 @@ void operate_obj(Console::Objects::TTurret& obj, PAINT& p, TPool& pool, QPoint o
     if (ammo) 
     {
     	offset += center.toPoint();
-	operate(*ammo, p, pool, offset);
+	    operate(*ammo, p, pool, offset);
     }
 
     p.save();
@@ -161,7 +161,7 @@ void operate_obj(Console::Objects::TTurret& obj, PAINT& p, TPool& pool, QPoint o
     p.translate(center + turret_pos);
     p.rotate(obj.get_gun_direction());
     p.scale(scale, scale);
-    p.drawPixmap(-center, sprite);
+    //p.drawPixmap(-center, sprite);
     p.restore();
 }
 
@@ -177,11 +177,17 @@ void operate_obj(Console::Objects::TBullet& obj, PAINT& p, TPool& pool, QPoint o
     
     QPixmap sprite = obj.get_sprite();
     QPointF center(sprite.width() / 2.0, sprite.height() / 2.0); // widget center
+    //QPointF new_pos = -center + obj.get_pos() + offset;
+    QPointF new_pos = -center + obj.get_pos();
+
+    printf("\tPOS %f, %f\n", new_pos.x(), new_pos.y());
+
+    //QPointF new_pos(300.0, 50.0);
     
     p.save();
     // uncomment to trade performance for quality
     //  painter.setRenderHint(QPainter::SmoothPixmapTransform);
-    p.drawPixmap(-center, sprite);
+    p.drawPixmap(new_pos, sprite);
     p.restore();
 }
 
@@ -190,7 +196,7 @@ template<class OBJ, class PAINT, typename ...Args>
 void operate_obj(Console::Objects::TControl& obj, PAINT& p, TPool& pool, QPoint offset)
 {
     Q_UNUSED(pool);
-    printf("***paint CONTROL %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+    //printf("***paint CONTROL %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     paint_object_base(obj, p, offset, obj.get_bg_colour());
 
@@ -202,7 +208,7 @@ template<class OBJ, class PAINT, typename ...Args>
 void operate_obj(Console::Objects::TLeft_button& obj, PAINT& p, TPool& pool, QPoint offset)
 {
     Q_UNUSED(pool);
-    printf("***paint LEFT BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+    //printf("***paint LEFT BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     QColor fgc = obj.get_is_pressed() ? obj.get_bg_colour() : obj.get_foreground_colour();
     paint_button_base(obj, p, offset);
@@ -213,7 +219,7 @@ template<class OBJ, class PAINT, typename ...Args>
 void operate_obj(Console::Objects::TRight_button& obj, PAINT& p, TPool& pool, QPoint offset)
 {
     Q_UNUSED(pool);
-    printf("***paint RIGHT BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+    //printf("***paint RIGHT BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     QColor fgc = obj.get_is_pressed() ? obj.get_bg_colour() : obj.get_foreground_colour();
     paint_button_base(obj, p, offset);
@@ -224,7 +230,7 @@ template<class OBJ, class PAINT, typename ...Args>
 void operate_obj(Console::Objects::TFire_button& obj, PAINT& p, TPool& pool, QPoint offset)
 {
     Q_UNUSED(pool);
-    printf("***paint FIRE BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+    //printf("***paint FIRE BUTTON %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     QColor fgc = obj.get_is_pressed() ? obj.get_bg_colour() : obj.get_foreground_colour();
     paint_button_base(obj, p, offset);
@@ -235,7 +241,7 @@ template<class OBJ, class PAINT, typename ...Args>
 void operate_obj(Console::Objects::TStorage& obj, PAINT& p, TPool& pool, QPoint offset)
 {
     Q_UNUSED(pool);
-    printf("***paint STORAGE %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
+    //printf("***paint STORAGE %d %dx%d %d,%d\n", obj.get_id(), obj.get_width(), obj.get_height(), offset.x(), offset.y());
 
     paint_object_base(obj, p, offset, obj.get_bg_colour());
 

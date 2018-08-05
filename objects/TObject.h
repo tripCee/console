@@ -53,6 +53,8 @@ public:
     void set_bg_colour(QColor bgc);
     QColor get_bg_colour();
 
+    virtual void update();
+
 private:
     type_t type;
     object_id_t id;

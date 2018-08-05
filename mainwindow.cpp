@@ -11,16 +11,22 @@ MainWindow::MainWindow(QWidget *parent):
     pool(),
     game(nullptr),
     held_timer(new QTimer(this)),
+    game_update_timer(new QTimer(this)),
     last_pos()
 {
     this->setGeometry(0, 0, CONSOLE_WIDTH, CONSOLE_HEIGHT);
     this->move(100, 100);
 
+    Init_test_game();
+
     held_timer->setInterval(50);
     held_timer->setSingleShot(false);
     connect(held_timer, SIGNAL(timeout()), this, SLOT(on_held_timer_timeout()));
 
-    Init_test_game();
+    game_update_timer->setInterval(100);
+    game_update_timer->setSingleShot(false);
+    connect(game_update_timer, SIGNAL(timeout()), this, SLOT(on_game_update_timer()));
+    game_update_timer->start();
 }
 
 
@@ -28,6 +34,8 @@ MainWindow::~MainWindow()
 {
     //if (pool) delete pool;
     held_timer->deleteLater();
+    game_update_timer->stop();
+    game_update_timer->deleteLater();
 }
 
 
@@ -42,11 +50,16 @@ void MainWindow::on_held_timer_timeout()
 }
 
 
+void MainWindow::on_game_update_timer()
+{
+    pool.update();
+
+    this->update();
+}
+
 void MainWindow::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
-
-    printf("PAINT\n");
 
     if (!game) return;
 
@@ -57,16 +70,12 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    printf("KEY PRESS\n");
-
     process_control_event(event->type(), event->key(), QPoint());
 }
 
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event)
 {
-    printf("KEY RELEASE\n");
-
     process_control_event(event->type(), event->key(), QPoint());
 }
 
@@ -138,9 +147,12 @@ void MainWindow::Init_test_game()
     Console::Objects::TStorage* storage = 
         new Console::Objects::TStorage(id, storage_width, CONSOLE_HEIGHT, border_width, Qt::blue);
 
-    //turret->set_gun_direction(45);
+    turret->set_gun_direction(90);
     turret->set_gun_rotate_speed(5);
     turret->set_ammunition_id(bullet->get_id());
+
+    bullet->set_speed(3);
+    bullet->set_direction(0);
 
     control->add_child(left_button->get_id(), QPoint(0, 0));
     control->add_child(fire_button->get_id(), QPoint(button_width, 0));

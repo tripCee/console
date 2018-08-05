@@ -105,5 +105,11 @@ QColor TObject::get_bg_colour()
 }
 
 
+void TObject::update()
+{
+
+}
+
+
 } // namespace Objects
 } // namespace Console

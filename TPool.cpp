@@ -41,3 +41,14 @@ const QMap<uint16_t, Console::Objects::TObject*>& TPool::get_objects()
     return objects;
 }
 
+
+void TPool::update()
+{
+    QMap<uint16_t, Console::Objects::TObject*>::iterator i = objects.begin();
+    while (i != objects.end())
+    {
+        i.value()->update();
+        ++i;
+    }
+}
+

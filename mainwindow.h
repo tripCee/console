@@ -21,6 +21,7 @@ public:
 
 public slots:
     void on_held_timer_timeout();
+    void on_game_update_timer();
 
 protected:
     virtual void paintEvent(QPaintEvent *event);
@@ -33,6 +34,7 @@ private:
     TPool pool;
     Console::Objects::TGame *game;
     QTimer *held_timer;
+    QTimer *game_update_timer;
     QPoint last_pos;
 
     void Init_test_game();

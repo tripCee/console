@@ -22,6 +22,8 @@ public:
 
     const QMap<uint16_t, Console::Objects::TObject*>& get_objects();
 
+    void update();
+
 private:
     uint16_t game_oid;
     QMap<uint16_t, Console::Objects::TObject*> objects;

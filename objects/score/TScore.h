@@ -19,7 +19,7 @@ public:
 
     void add_child(object_id_t cid, QPoint pos);
     const QMap<object_id_t, QPoint>& get_children();
-
+    
 private:
     QMap<object_id_t, QPoint> children;
 };
